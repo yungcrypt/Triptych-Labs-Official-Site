@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FC, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
@@ -9,7 +10,7 @@ interface LabelProps {
 }
 
 const LabelWrapper = styled('span')(
-  ({ theme }) => `
+  (theme) => `
       background-color: ${theme.colors.alpha.black[5]};
       padding: ${theme.spacing(0.5, 1)};
       font-size: ${theme.typography.pxToRem(13)};
@@ -50,7 +51,7 @@ const LabelWrapper = styled('span')(
           color: ${theme.palette.info.main}
         }
       }
-`
+`,
 );
 
 const Label: FC<LabelProps> = ({
@@ -75,8 +76,8 @@ Label.propTypes = {
     'error',
     'warning',
     'success',
-    'info'
-  ])
+    'info',
+  ]),
 };
 
 export default Label;

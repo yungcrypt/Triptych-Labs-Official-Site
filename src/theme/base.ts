@@ -8,7 +8,7 @@ export function themeCreator(theme: string): Theme {
 }
 
 declare module '@mui/material/styles' {
-  interface Theme {
+  export interface Theme {
     colors: {
       gradients: {
         blue1: string;
@@ -235,5 +235,5 @@ declare module '@mui/material/styles' {
 }
 
 const themeMap: { [key: string]: Theme } = {
-  NebulaFighterTheme
+  NebulaFighterTheme,
 };
