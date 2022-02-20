@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Typography
-} from '@mui/material';
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -13,15 +7,14 @@ import { styled } from '@mui/material/styles';
 const TypographyH1 = styled(Typography)(
   ({ theme }) => `
     font-size: ${theme.typography.pxToRem(50)};
-`
+`,
 );
 
 const TypographyH2 = styled(Typography)(
   ({ theme }) => `
     font-size: ${theme.typography.pxToRem(17)};
-`
+`,
 );
-
 const LabelWrapper = styled(Box)(
   ({ theme }) => `
     background-color: ${theme.colors.success.main};
@@ -31,9 +24,9 @@ const LabelWrapper = styled(Box)(
     text-transform: uppercase;
     display: inline-block;
     font-size: ${theme.typography.pxToRem(11)};
-    padding: ${theme.spacing(.5)} ${theme.spacing(1.5)};
+    padding: ${theme.spacing(0.5)} ${theme.spacing(1.5)};
     margin-bottom: ${theme.spacing(2)};
-`
+`,
 );
 
 const MuiAvatar = styled(Box)(
@@ -53,7 +46,7 @@ const MuiAvatar = styled(Box)(
       height: 60%;
       display: block;
     }
-`
+`,
 );
 
 const TsAvatar = styled(Box)(
@@ -73,14 +66,26 @@ const TsAvatar = styled(Box)(
       height: 60%;
       display: block;
     }
-`
+`,
 );
 
 function Hero() {
-
   return (
-    <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
-      <Grid spacing={{ xs: 6, md: 10 }} justifyContent="center" alignItems="center" container>
+    <Container
+      maxWidth="lg"
+      sx={{
+        textAlign: 'center',
+        position: 'relative',
+        backgroundColor: 'teal',
+      }}
+    >
+      <Grid
+        container
+        // spacing={0}
+        // align="center"
+        // justify="center"
+        // direction="column"
+      >
         <Grid item md={10} lg={8} mx="auto">
           <LabelWrapper color="success">Version 1.1.0</LabelWrapper>
           <TypographyH1 sx={{ mb: 2 }} variant="h1">
@@ -92,7 +97,7 @@ function Hero() {
             color="text.secondary"
             fontWeight="normal"
           >
-            Tokyo Free Black React Admin Dashboard is built using the latest industry standards and features a clean and premium design style, making use of colors and accents to improve the user experience for all included flows and pages.
+            We are Triptych Labs.
           </TypographyH2>
           <Button
             component={RouterLink}
@@ -116,18 +121,38 @@ function Hero() {
           <Grid container spacing={3} mt={5}>
             <Grid item md={6}>
               <MuiAvatar>
-                <img src="/static/images/logo/material-ui.svg" alt="Material-UI" />
+                <img
+                  src="/static/images/logo/material-ui.svg"
+                  alt="Material-UI"
+                />
               </MuiAvatar>
               <Typography variant="h4">
-                <Box sx={{ pb: 2 }}><b>Powered by Material-UI</b></Box><Typography component="span" variant="subtitle2"> - A simple and customizable component library to build faster, beautiful, andaccessible React apps.</Typography>
+                <Box sx={{ pb: 2 }}>
+                  <b>Powered by Material-UI</b>
+                </Box>
+                <Typography component="span" variant="subtitle2">
+                  {' '}
+                  - A simple and customizable component library to build faster,
+                  beautiful, andaccessible React apps.
+                </Typography>
               </Typography>
             </Grid>
             <Grid item md={6}>
               <TsAvatar>
-                <img src="/static/images/logo/typescript.svg" alt="Typescript" />
+                <img
+                  src="/static/images/logo/typescript.svg"
+                  alt="Typescript"
+                />
               </TsAvatar>
               <Typography variant="h4">
-                <Box sx={{ pb: 2 }}><b>Built with Typescript</b></Box><Typography component="span" variant="subtitle2"> - Tokyo Free Black features a modern technology stack and is built with React + Typescript.</Typography>
+                <Box sx={{ pb: 2 }}>
+                  <b>Built with Typescript</b>
+                </Box>
+                <Typography component="span" variant="subtitle2">
+                  {' '}
+                  - Tokyo Free Black features a modern technology stack and is
+                  built with React + Typescript.
+                </Typography>
               </Typography>
             </Grid>
           </Grid>
