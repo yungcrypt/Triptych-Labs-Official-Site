@@ -1068,13 +1068,18 @@ export const NebulaFighterTheme = createTheme({
     ].join(','),
     fontSize: 14,
     htmlFontSize: 15,
-    h1: {
-      fontWeight: 700,
-      fontSize: 30
+        h1: {
+        fontWeight:800,
+        fontSize:'.8em'
     },
+    subtitle1: {
+        fontWeight: 300,
+        fontSize: '16px',
+    },
+
     h2: {
-      fontWeight: 700,
-      fontSize: 25
+      fontWeight: 300,
+      fontSize: '.6em'
     },
     h3: {
       fontWeight: 700,
@@ -1108,10 +1113,7 @@ export const NebulaFighterTheme = createTheme({
       textTransform: 'uppercase',
       color: colors.alpha.black[50]
     },
-    subtitle1: {
-      fontSize: 14,
-      color: colors.alpha.black[70]
-    },
+
     subtitle2: {
       fontWeight: 400,
       fontSize: 15,
