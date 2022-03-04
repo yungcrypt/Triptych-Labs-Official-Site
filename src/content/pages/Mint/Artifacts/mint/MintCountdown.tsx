@@ -38,21 +38,15 @@ export const MintCountdown: React.FC<MintCountdownProps> = ({
       return (
         <div>
           <Paper elevation={0}>
-            <span >
-              {hours < 10 ? `0${hours}` : hours}
-            </span>
+            <span>{hours < 10 ? `0${hours}` : hours}</span>
             <span>hrs</span>
           </Paper>
           <Paper elevation={0}>
-            <span>
-              {minutes < 10 ? `0${minutes}` : minutes}
-            </span>
+            <span>{minutes < 10 ? `0${minutes}` : minutes}</span>
             <span>mins</span>
           </Paper>
           <Paper elevation={0}>
-            <span >
-              {seconds < 10 ? `0${seconds}` : seconds}
-            </span>
+            <span>{seconds < 10 ? `0${seconds}` : seconds}</span>
             <span>secs</span>
           </Paper>
         </div>

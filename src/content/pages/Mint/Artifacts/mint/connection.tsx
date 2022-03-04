@@ -30,7 +30,7 @@ export const getErrorForTransaction = async (
 
   const errors: string[] = [];
   if (tx?.meta && tx.meta.logMessages) {
-    tx.meta.logMessages.forEach(log => {
+    tx.meta.logMessages.forEach((log) => {
       const regex = /Error: (.*)/gm;
       let m;
       while ((m = regex.exec(log)) !== null) {
@@ -103,7 +103,7 @@ export async function sendTransactionsWithManualRetry(
           SequenceType.StopOnFailure,
           'single',
         );
-        ids = ids.concat(txs.map(t => t.txid));
+        ids = ids.concat(txs.map((t) => t.txid));
       }
     } catch (e) {
       console.error(e);
@@ -150,13 +150,13 @@ export const sendTransactions = async (
     }
 
     let transaction = new Transaction();
-    instructions.forEach(instruction => transaction.add(instruction));
+    instructions.forEach((instruction) => transaction.add(instruction));
     transaction.recentBlockhash = block.blockhash;
-  //@ts-ignore
+    //@ts-ignore
     transaction.setSigners(
       // fee payed by the wallet owner
       wallet.publicKey,
-      ...signers.map(s => s.publicKey),
+      ...signers.map((s) => s.publicKey),
     );
 
     if (signers.length > 0) {
@@ -187,7 +187,7 @@ export const sendTransactions = async (
       .then(({ txid, slot }) => {
         successCallback(txid, i);
       })
-      .catch(reason => {
+      .catch((reason) => {
         // @ts-ignore
         failCallback(signedTxns[i], i);
         if (sequenceType === SequenceType.StopOnFailure) {
@@ -235,18 +235,18 @@ export const sendTransaction = async (
   if (!wallet.publicKey) throw new WalletNotConnectedError();
 
   let transaction = new Transaction();
-  instructions.forEach(instruction => transaction.add(instruction));
+  instructions.forEach((instruction) => transaction.add(instruction));
   transaction.recentBlockhash = (
     block || (await connection.getRecentBlockhash(commitment))
   ).blockhash;
 
   if (includesFeePayer) {
-    transaction.setSigners(...signers.map(s => s.publicKey));
+    transaction.setSigners(...signers.map((s) => s.publicKey));
   } else {
     transaction.setSigners(
       // fee payed by the wallet owner
       wallet.publicKey,
-      ...signers.map(s => s.publicKey),
+      ...signers.map((s) => s.publicKey),
     );
   }
 
@@ -302,18 +302,18 @@ export const sendTransactionWithRetry = async (
   if (!wallet.publicKey) throw new WalletNotConnectedError();
 
   let transaction = new Transaction();
-  instructions.forEach(instruction => transaction.add(instruction));
+  instructions.forEach((instruction) => transaction.add(instruction));
   transaction.recentBlockhash = (
     block || (await connection.getRecentBlockhash(commitment))
   ).blockhash;
 
   if (includesFeePayer) {
-    transaction.setSigners(...signers.map(s => s.publicKey));
+    transaction.setSigners(...signers.map((s) => s.publicKey));
   } else {
     transaction.setSigners(
       // fee payed by the wallet owner
       wallet.publicKey,
-      ...signers.map(s => s.publicKey),
+      ...signers.map((s) => s.publicKey),
     );
   }
 
@@ -393,7 +393,7 @@ export async function sendSignedTransaction({
     }
 
     slot = confirmation?.slot || 0;
-  //@ts-ignore
+    //@ts-ignore
   } catch (err) {
     console.error('Timeout Error caught', err);
     //@ts-ignore
@@ -542,5 +542,5 @@ async function awaitTransactionSignatureConfirmation(
   return status;
 }
 export function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

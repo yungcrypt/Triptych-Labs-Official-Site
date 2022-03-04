@@ -1,65 +1,68 @@
-import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material';
+import {
+  createTheme,
+  StyledEngineProvider,
+  ThemeProvider,
+} from '@mui/material';
 import { deepPurple, amber } from '@mui/material/colors';
 import { SnackbarProvider } from 'notistack';
 import React, { FC, ReactNode } from 'react';
 //@ts-ignore
 const theme = createTheme({
-            typography: {
+  typography: {
     fontFamily: 'Chava',
     h1: {
-        fontWeight:800,
-        fontSize:'.8em'
+      fontWeight: 800,
+      fontSize: '.8em',
     },
     h2: {
-        fontWeight:200,
-        fontSize:'.6em',
-        margin:'10px'
+      fontWeight: 200,
+      fontSize: '.6em',
+      margin: '10px',
     },
     subtitle1: {
-        fontWeight: 300,
-        fontSize: '14px',
+      fontWeight: 300,
+      fontSize: '14px',
     },
-
   },
-    palette: {
-        mode: 'dark',
-        primary: {
-            main: amber[500],
-        },
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: amber[500],
     },
-    components: {
-        MuiButtonBase: {
-            styleOverrides: {
-                root: {
-                    justifyContent: 'center',
-                    textAlign: 'center' ,
-                },
-            },
+  },
+  components: {
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          justifyContent: 'center',
+          textAlign: 'center',
         },
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    textTransform: 'none',
-                    fontSize:'1vw',
-                    padding: '12px 16px',
-                },
-                startIcon: {
-                    marginRight: 8,
-                },
-                endIcon: {
-                    marginLeft: 8,
-                },
-            },
-        },
+      },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontSize: '1vw',
+          padding: '12px 16px',
+        },
+        startIcon: {
+          marginRight: 8,
+        },
+        endIcon: {
+          marginLeft: 8,
+        },
+      },
+    },
+  },
 });
 
 export const Theme: FC<{ children: ReactNode }> = ({ children }) => {
-    return (
-        <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>
-                <SnackbarProvider>{children}</SnackbarProvider>
-            </ThemeProvider>
-        </StyledEngineProvider>
-    );
+  return (
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider>{children}</SnackbarProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 };

@@ -1,4 +1,4 @@
-import {MintApp} from './MintApp'
+import { MintApp } from './MintApp';
 import React, { FC, ReactNode, useCallback, useMemo } from 'react';
 import { WalletAdapterNetwork, WalletError } from '@solana/wallet-adapter-base';
 import {
@@ -62,11 +62,7 @@ const ButtonSearch = styled(Button)(
 `,
 );
 
-
-
 function Artifacts() {
-  
-
   return (
     <>
       <a
@@ -88,14 +84,13 @@ function Artifacts() {
       <Helmet>
         <title>Artifactory</title>
       </Helmet>
-        <MainContent>
-       		<MintApp />
-                <Divider sx={{ my: 4 }}>OR</Divider>
-                <Button href="/overview" variant="outlined">
-                  Go to homepage
-                </Button>
-        </MainContent>
-
+      <MainContent>
+        <MintApp />
+        <Divider sx={{ my: 4 }}>OR</Divider>
+        <Button href="/overview" variant="outlined">
+          Go to homepage
+        </Button>
+      </MainContent>
     </>
   );
 }
