@@ -52,6 +52,16 @@ const menuItems: MenuItems[] = [
     ],
   },
   {
+    heading: 'Discord',
+    items: [
+      {
+        name: 'Verify',
+        icon: VerifiedUserTwoToneIcon,
+        link: '/discord/verify',
+      },
+    ],
+  },
+  {
     heading: 'Mission Crew',
     items: [
       {

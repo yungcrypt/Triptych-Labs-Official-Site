@@ -162,6 +162,16 @@ const routes: PartialRouteObject[] = [
       },
     ],
   },
+  {
+    path: 'discord',
+    element: <SidebarLayout />,
+    children: [
+      {
+        path: '/verify',
+        element: <Twitter href={'https://verify.triptychlabs.io'} />,
+      },
+    ],
+  },
 ];
 
 export default routes;
