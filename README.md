@@ -44,8 +44,8 @@ To discover all the features that this free React admin template has to offer, w
 </h2>
 <ol>
     <li>Make sure you have the latest stable versions for Node.js and NPM installed</li>
-    <li>Clone repository: <code>git clone https://github.com/bloomui/tokyo-free-black-react-admin-dashboard.git</code></li>
-    <li>Install dependencies: Run <code>npm install</code> inside the project folder</li>
+    <li>Clone repository: <code>git clone git@github.com:Triptych-Labs/Triptych-Labs-Official-Site.git</code></li>
+    <li>Install dependencies: Run <code>yarn install</code> inside the project folder</li>
     <li>Start dev server: After the install finishes, run <code>npm run start</code>. A browser window will open on http://localhost:3000 where you''ll see the live preview</li>
 </ol>
 

@@ -10,11 +10,14 @@ import SidebarMenu from './SidebarMenu';
 
 const SidebarWrapper = styled(Box)(
   ({ theme }) => `
+        top: 15%;
+        left: 7%;
         width: ${theme.sidebar.width};
         color: ${theme.sidebar.textColor};
-        background: ${theme.sidebar.background};
+        background: rgba(17, 22, 51, 0.9);
         box-shadow: ${theme.sidebar.boxShadow};
-        height: 100%;
+        height: 50%;
+        margin: auto;
         
         @media (min-width: ${theme.breakpoints.values.lg}px) {
             position: fixed;
@@ -22,7 +25,7 @@ const SidebarWrapper = styled(Box)(
             border-top-right-radius: ${theme.general.borderRadius};
             border-bottom-right-radius: ${theme.general.borderRadius};
         }
-`
+`,
 );
 
 const TopSection = styled(Box)(
@@ -32,7 +35,7 @@ const TopSection = styled(Box)(
         align-items: center;
         margin: 0 ${theme.spacing(2)} ${theme.spacing(2)};
         border-bottom: ${theme.sidebar.dividerBg} solid 1px;
-`
+`,
 );
 
 function Sidebar() {
@@ -54,7 +57,7 @@ function Sidebar() {
       <Hidden lgUp>
         <Drawer
           anchor="left"
-          open={sidebarToggle}
+          open={true}
           onClose={closeSidebar}
           variant="temporary"
           elevation={9}

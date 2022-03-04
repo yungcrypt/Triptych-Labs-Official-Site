@@ -4,7 +4,6 @@ import SidebarMenuItem from './item';
 import menuItems, { MenuItem } from './items';
 import { styled } from '@mui/material/styles';
 
-
 const MenuWrapper = styled(List)(
   ({ theme }) => `
     margin-bottom: ${theme.spacing(1)};
@@ -22,7 +21,7 @@ const MenuWrapper = styled(List)(
       padding: ${theme.spacing(0.8, 2)};
       line-height: 1.4;
     }
-`
+`,
 );
 
 const SubMenuWrapper = styled(List)(
@@ -122,12 +121,12 @@ const SubMenuWrapper = styled(List)(
         }
       }
     }
-`
+`,
 );
 
 const renderSidebarMenuItems = ({
   items,
-  path
+  path,
 }: {
   items: MenuItem[];
   path: string;
@@ -140,7 +139,7 @@ const renderSidebarMenuItems = ({
 const reduceChildRoutes = ({
   ev,
   path,
-  item
+  item,
 }: {
   ev: JSX.Element[];
   path: string;
@@ -148,16 +147,26 @@ const reduceChildRoutes = ({
 }): Array<JSX.Element> => {
   const key = item.name;
 
-  const exactMatch = item.link ? !!matchPath({
-    path: item.link,
-    end: true
-  }, path) : false;
+  const exactMatch = item.link
+    ? !!matchPath(
+        {
+          path: item.link,
+          end: true,
+        },
+        path,
+      )
+    : false;
 
   if (item.items) {
-    const partialMatch = item.link ? !!matchPath({
-      path: item.link,
-      end: false
-    }, path) : false;
+    const partialMatch = item.link
+      ? !!matchPath(
+          {
+            path: item.link,
+            end: false,
+          },
+          path,
+        )
+      : false;
 
     ev.push(
       <SidebarMenuItem
@@ -171,9 +180,9 @@ const reduceChildRoutes = ({
       >
         {renderSidebarMenuItems({
           path,
-          items: item.items
+          items: item.items,
         })}
-      </SidebarMenuItem>
+      </SidebarMenuItem>,
     );
   } else {
     ev.push(
@@ -184,16 +193,15 @@ const reduceChildRoutes = ({
         link={item.link}
         badge={item.badge}
         icon={item.icon}
-      />
+      />,
     );
   }
 
   return ev;
-}
+};
 
 function SidebarMenu() {
   const location = useLocation();
-
 
   return (
     <>
@@ -201,12 +209,14 @@ function SidebarMenu() {
         <MenuWrapper
           key={section.heading}
           subheader={
-            <ListSubheader component="div" disableSticky>{section.heading}</ListSubheader>
+            <ListSubheader component="div" disableSticky>
+              {section.heading}
+            </ListSubheader>
           }
         >
           {renderSidebarMenuItems({
             items: section.items,
-            path: location.pathname
+            path: location.pathname,
           })}
         </MenuWrapper>
       ))}

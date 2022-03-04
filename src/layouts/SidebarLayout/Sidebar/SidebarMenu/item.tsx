@@ -11,8 +11,9 @@ import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 
 interface SidebarMenuItemProps {
   children?: ReactNode;
-  link?: string;
   icon?: any;
+  link?: string;
+  href?: string;
   badge?: string;
   open?: boolean;
   active?: boolean;
@@ -21,6 +22,7 @@ interface SidebarMenuItemProps {
 
 const SidebarMenuItem: FC<SidebarMenuItemProps> = ({
   children,
+  href,
   link,
   icon: Icon,
   badge,
@@ -75,10 +77,11 @@ SidebarMenuItem.propTypes = {
   children: PropTypes.node,
   active: PropTypes.bool,
   link: PropTypes.string,
+  href: PropTypes.string,
   icon: PropTypes.elementType,
   badge: PropTypes.string,
   open: PropTypes.bool,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
 
 SidebarMenuItem.defaultProps = {

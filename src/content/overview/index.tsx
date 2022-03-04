@@ -1,17 +1,34 @@
-import { Box, Container, Card } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 
 import { styled } from '@mui/material/styles';
-import Logo from 'src/components/LogoSign';
 import * as THREE from 'three';
-import { useState, useMemo, useRef } from 'react';
+import SidebarLayout from 'src/layouts/SidebarLayout';
+import { useState, Suspense, useMemo, useRef, useCallback } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { a, animated } from '@react-spring/three';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { EffectComposer, DepthOfField } from '@react-three/postprocessing';
+import { useLoader } from '@react-three/fiber';
 // import randomColor from 'randomcolor';
 // import CameraControls from 'camera-controls';
 import planetData from './planets';
 import { useSpring } from 'react-spring';
 // import Hero from './Hero';
-import { OrbitControls } from '@react-three/drei';
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Grid,
+  Card,
+  CardHeader,
+  CardContent,
+  Divider,
+} from '@mui/material';
+import { OrbitControls, Scroll } from '@react-three/drei';
+import { Parallax, ParallaxLayer } from '@react-spring/parallax';
+import { Sun } from './planet';
 
 const LandingContainer = styled(Container)(
   () => `
@@ -27,178 +44,338 @@ const OverviewWrapper = styled(Box)(
     align-items: center;
 `,
 );
+function Dialog({ dialogue, setSidebar, bottomRef }) {
+  const onClick = useCallback(() => {
+    setSidebar(1);
+    bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
-// CameraControls.install({ THREE });
-const randomPos = (min = 5, max = -5) => Math.random() * (max - min) + min;
-
-function Controls({
-  zoom,
-  focus,
-  pos = new THREE.Vector3(),
-  look = new THREE.Vector3(),
-}) {
-  const camera = useThree((state) => state.camera);
-  const gl = useThree((state) => state.gl);
-  // const controls = useMemo(() => new CameraControls(camera, gl.domElement), []);
-
-  useSpring({
-    from: {
-      z: 300,
-    },
-    z: 2,
-    onFrame: ({ z }) => {
-      camera.position.z = z;
-    },
-  });
-
-  /*
-  useFrame((state, delta) => {
-    // zoom ? pos.set(focus.x, focus.y, focus.z + 0.2) : pos.set(0, 0, 5);
-    // zoom ? look.set(focus.x, focus.y, focus.z - 0.2) : look.set(0, 0, 4);
-
-    // state.camera.position.lerp(pos, 0.5);
-    // state.camera.updateProjectionMatrix();
-
-    console.log(
-      state.camera.position.x,
-      state.camera.position.y,
-      state.camera.position.z,
-      look.x,
-      look.y,
-      look.z,
-      true,
-    );
-
-    controls.setLookAt(
-      state.camera.position.x,
-      state.camera.position.y,
-      state.camera.position.z,
-      look.x,
-      look.y,
-      look.z,
-      true,
-    );
-    return controls.update(delta);
-  });
-  */
-
+  let message: string;
+  switch (dialogue) {
+    case 0:
+      message = 'Greetings and Welcome to the Triptych Laborare...';
+      break;
+    case 1:
+      message = 'You are a made devman!!!';
+      break;
+    default:
+      message = 'Follow us on Twitter to stay up to date with our expedition.';
+      break;
+  }
   return (
-    <OrbitControls
-      autoRotate
-      target={[0, 0, 0]}
-      args={[camera, gl.domElement]}
-    />
-  );
-}
-
-function Cloud({ momentsData, zoomToView }) {
-  return momentsData.map(({ position, color }, i) => (
-    <mesh
-      key={i}
-      position={position}
-      onClick={(e) => zoomToView(e.eventObject.position)}
+    <Grid
+      item
+      xs={12}
+      style={{
+        paddingLeft: '350px',
+        paddingTop: '350px',
+        width: '100%',
+        margin: 'left',
+        justifyContent: 'right',
+        zIndex: 1,
+        position: 'absolute',
+      }}
     >
-      <boxGeometry args={[0.1, 0.08, 0.003]} />
-      <meshStandardMaterial color={color} />
-    </mesh>
-  ));
-}
-
-function Sun() {
-  return (
-    <mesh>
-      <sphereGeometry args={[2.5, 32, 32]} />
-      <meshStandardMaterial color="#E1DC59" />
-    </mesh>
+      <div
+        style={{
+          width: '30%',
+          right: '60px',
+          margin: 'auto',
+          textAlign: 'center',
+          padding: '10px',
+          paddingLeft: '16%',
+          marginRight: '18%',
+        }}
+      >
+        <Card>
+          <CardHeader title="Welcome to The Triptych Laborare" />
+          <p>{message}</p>
+          <Divider />
+          <CardContent>
+            <Button
+              sx={{ margin: 1 }}
+              variant="contained"
+              color="primary"
+              onClick={onClick}
+            >
+              Explore
+            </Button>
+            <Button
+              sx={{ margin: 1 }}
+              variant="contained"
+              color="primary"
+              href="/sitemap"
+            >
+              Visit The Lab
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </Grid>
   );
 }
-function Planet({ planet: { color, xRadius, zRadius, size } }) {
-  const planetRef = useRef();
+
+function Logo() {
+  const glb = useLoader(GLTFLoader, '/static/models/logo.gltf');
+  const copiedGLTF = useMemo(() => glb.scene.clone(), [glb]);
+
+  const logoRef = useRef();
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
-    const x = xRadius * Math.sin(t);
-    const z = zRadius * Math.cos(t);
+    const y = Math.sin(t);
+    const z = -200 * Math.cos(t);
     // @ts-ignore
-    planetRef.current.position.x = x;
+    logoRef.current.rotation.x -= 0.02;
     // @ts-ignore
-    planetRef.current.position.z = z;
+    logoRef.current.rotation.z += 0.02;
+    // @ts-ignore
+    logoRef.current.rotation.y += 0.005;
   });
 
   return (
-    <>
-      <mesh ref={planetRef}>
-        <sphereGeometry args={[size, 32, 32]} />
-        <meshStandardMaterial color={color} />
-      </mesh>
-      <Ecliptic xRadius={xRadius} zRadius={zRadius} />
-    </>
+    <group rotation={[0, 0, 0]}>
+      <a.primitive
+        ref={logoRef}
+        object={copiedGLTF}
+        position={[0, 200, 0]}
+        scale={10}
+      />
+    </group>
   );
 }
 
-function Lights() {
-  return (
-    <>
-      <ambientLight />
-      <pointLight position={[0, 0, 0]} />
-    </>
-  );
-}
+function Satellite({ size }) {
+  const obj = useLoader(OBJLoader, '/static/models/Juno.obj');
+  const copiedScene = useMemo(() => obj.clone(), [obj]);
+  const satRef = useRef();
+  const groupRef = useRef();
 
-function Ecliptic({ xRadius = 1, zRadius = 1 }) {
-  const points = [];
-  for (let index = 0; index < 64; index++) {
-    const angle = (index / 64) * 2 * Math.PI;
-    const x = xRadius * Math.cos(angle);
-    const z = zRadius * Math.sin(angle);
-    points.push(new THREE.Vector3(x, 0, z));
-  }
-
-  points.push(points[0]);
-
-  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-  return (
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
+    const x = 900 * Math.sin(t);
+    const y = Math.sin(t);
+    const z = -200 * Math.cos(t);
     // @ts-ignore
-    <line geometry={lineGeometry}>
-      <lineBasicMaterial attach="material" color="#BFBBDA" linewidth={10} />
-    </line>
+    satRef.current.position.x = x;
+    // @ts-ignore
+    satRef.current.position.y = y + 50;
+    // @ts-ignore
+    satRef.current.position.z = z;
+    // @ts-ignore
+    satRef.current.rotation.z += 0.02;
+    // @ts-ignore
+    satRef.current.rotation.y += 0.005;
+    // @ts-ignore
+    groupRef.current.rotation.x = Math.tan(t);
+    // @ts-ignore
+    groupRef.current.position.z = Math.tan(t);
+    // @ts-ignore
+    groupRef.current.position.y = Math.tan(t);
+  });
+  return (
+    <group ref={groupRef} position={[80, 0, 60]} rotation={[0, 90, 0]}>
+      <a.primitive
+        ref={satRef}
+        object={copiedScene}
+        position={[90, 10, 70]}
+        scale={size}
+        rotation={[90, 0, 300]}
+      />
+    </group>
+  );
+}
+
+function SpinningThing() {
+  const ROW = 100;
+  const COL = 100;
+  const NUM = ROW * COL;
+  const _obj = new THREE.Object3D();
+  const instance = useRef();
+  const scale = useMemo(
+    //@ts-ignore
+    () => new Array(NUM).fill().map(() => (Math.random() < 0.03 ? 3 : 1)),
+    [],
+  );
+  useFrame(({ clock }) => {
+    const time = clock.getElapsedTime() / 4;
+    let id = 0;
+    for (let y = 0; y < ROW; y += 1) {
+      for (let x = 0; x < COL; x += 1) {
+        const s = scale[id];
+        _obj.scale.set(s, s, s);
+        _obj.position.set(
+          (x - COL / 2) / 3 - 5 + (Math.sin(x) * Math.PI) / 10,
+          (y - ROW / 2) / 3 + 7 + (Math.cos(y) * Math.PI) / 10,
+          -10 +
+            (Math.cos((4 * Math.PI * (x - COL / 2)) / COL + time) +
+              Math.sin((8 * Math.PI * (y - ROW / 2)) / ROW + time)) +
+            0.2 *
+              (Math.cos((12 * Math.PI * (x - COL / 2)) / COL + time) +
+                Math.sin((17 * Math.PI * (y - ROW / 2)) / ROW + time)),
+        );
+        _obj.updateMatrix();
+        //@ts-ignore
+        instance.current.setMatrixAt(id, _obj.matrix);
+        id += 1;
+      }
+    }
+    //@ts-ignore
+    instance.current.instanceMatrix.needsUpdate = true;
+  });
+  return (
+    <group position={[20, 10, 0]} rotation={[-Math.PI / 2, 0, Math.PI / 4]}>
+      <instancedMesh ref={instance} args={[null, null, NUM]}>
+        <octahedronBufferGeometry args={[0.02, 2, 2]} />
+        <meshBasicMaterial />
+      </instancedMesh>
+    </group>
+  );
+}
+
+function Swarm({ count, ...props }) {
+  const mesh = useRef();
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+
+  const particles = useMemo(() => {
+    const temp = [];
+    for (let i = 0; i < count; i++) {
+      const x = 20 - Math.random() * 40;
+      const y = 20 - Math.random() * 40;
+      const z = Math.random() * -50 - 50;
+      const speed = 0.01 + Math.random() / 1;
+      temp.push({ x, y, z, speed });
+    }
+    return temp;
+  }, [count]);
+
+  useFrame(() => {
+    particles.forEach((particle, i) => {
+      let { z, speed } = particle;
+      particle.z = z < 5 ? z + speed : Math.random() * -600;
+
+      dummy.position.set(particle.x, particle.y, particle.z);
+      dummy.updateMatrix();
+      //@ts-ignore
+      mesh.current.setMatrixAt(i, dummy.matrix);
+    });
+
+    //@ts-ignore
+    mesh.current.instanceMatrix.needsUpdate = true;
+  });
+
+  return (
+    <instancedMesh ref={mesh} scale={20} args={[null, null, count]} {...props}>
+      <boxBufferGeometry args={[0.025, 0.025, 0.025]} />
+      <meshStandardMaterial color="orange" />
+    </instancedMesh>
   );
 }
 
 function Overview() {
+  const [landingJupiter, setLandingJupiter] = useState(0);
+  const [explorationJupiter, setExplorationJupiter] = useState(0);
+  const [dialogue, setDialogue] = useState(0);
   const [zoom, setZoom] = useState(false);
   const [focus, setFocus] = useState({});
+  const bottomRef = useRef(null);
+
+  const [sidebar, setSidebar] = useState(0);
+
   return (
-    <OverviewWrapper>
-      <Helmet>
-        <title>Triptych Laborare</title>
-      </Helmet>
-      <LandingContainer>
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <Logo />
-        </Box>
-        <Canvas
-          style={{ height: '100vh', width: '100%' }}
-          linear
-          camera={{ position: [0, 0, 5] }}
-        >
-          <ambientLight />
-          <directionalLight position={[150, 150, 150]} intensity={0.55} />
-          <Sun />
-          {planetData.map((planet) => (
-            <Planet planet={planet} key={planet.id} />
-          ))}
-          <Controls zoom={zoom} focus={focus} />
-        </Canvas>
-      </LandingContainer>
-    </OverviewWrapper>
+    <>
+      <a
+        href="https://bank.gov.ua/en/news/all/natsionalniy-bank-vidkriv-spetsrahunok-dlya-zboru-koshtiv-na-potrebi-armiyi"
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          width: '90px',
+          height: '90px',
+          background:
+            "url('http://stfalcon.github.io/stopwar/img/stop-war-in-ukraine.png')",
+          zIndex: 2013,
+          border: 0,
+        }}
+        title="Do something to stop this war! Russians are killing our children and civilians!"
+        target="_blank"
+      />
+      <div style={{ opacity: sidebar }}>
+        <SidebarLayout />
+      </div>
+      {sidebar === 0 && (
+        <Dialog
+          dialogue={dialogue}
+          setSidebar={setSidebar}
+          bottomRef={bottomRef}
+        />
+      )}
+      <OverviewWrapper>
+        <Helmet>
+          <title>Triptych Laborare</title>
+        </Helmet>
+        <LandingContainer>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Parallax
+              pages={2}
+              style={{ top: '0', left: '0', right: '0', bottom: '0' }}
+            >
+              <ParallaxLayer offset={0} speed={2.5}>
+                <Canvas
+                  style={{ height: '98vh' }}
+                  linear
+                  camera={{ position: [0, 100, 300], fov: 90 }}
+                >
+                  <Logo />
+                  <Satellite size={0.5} />
+                  <Sun
+                    inst={0}
+                    size={80}
+                    toggle={explorationJupiter}
+                    set={setExplorationJupiter}
+                    dialogue={dialogue}
+                    setDialogue={setDialogue}
+                    bottomRef={bottomRef}
+                    sidebar={sidebar}
+                    setSidebar={setSidebar}
+                  />
+                  <Swarm count={500} />
+                </Canvas>
+              </ParallaxLayer>
+              <ParallaxLayer offset={1} speed={0}>
+                <Canvas
+                  style={{ height: '98vh' }}
+                  orthographic
+                  camera={{
+                    near: 1,
+                    far: 40,
+                    // position: [-30, -10, 10],
+                    position: [-30, -10, 10],
+                    zoom: 125,
+                    fov: 100,
+                  }}
+                >
+                  <SpinningThing />
+                  <EffectComposer multisampling={0}>
+                    <DepthOfField
+                      target={[0, 0, 0]}
+                      bokehScale={2}
+                      focalLength={0.05}
+                      width={400}
+                      height={400}
+                    />
+                  </EffectComposer>
+                </Canvas>
+              </ParallaxLayer>
+              <ParallaxLayer offset={1} speed={0}>
+                <div ref={bottomRef} />
+              </ParallaxLayer>
+            </Parallax>
+          </Suspense>
+        </LandingContainer>
+      </OverviewWrapper>
+    </>
   );
 }
 
 export default Overview;
-/*
-          <Cloud
-            momentsData={momentsArray}
-            zoomToView={(focusRef) => (setZoom(!zoom), setFocus(focusRef))}
-          />
-          */

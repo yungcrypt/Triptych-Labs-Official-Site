@@ -17,6 +17,7 @@ import TrafficTwoToneIcon from '@mui/icons-material/TrafficTwoTone';
 import VerifiedUserTwoToneIcon from '@mui/icons-material/VerifiedUserTwoTone';
 
 export interface MenuItem {
+  href?: string;
   link?: string;
   icon?: ReactNode;
   badge?: string;
@@ -36,128 +37,48 @@ const menuItems: MenuItems[] = [
       {
         name: 'Overview',
         link: '/overview',
-        icon: DesignServicesTwoToneIcon
-      }
-    ]
-  },
-  {
-    heading: 'Dashboards',
-    items: [
-      {
-        name: 'Crypto',
-        link: '/dashboards/crypto',
-        icon: BrightnessLowTwoToneIcon
-      },
-      {
-        name: 'Messenger',
-        icon: MmsTwoToneIcon,
-        link: '/dashboards/messenger'
-      },
-    ]
-  },
-  {
-    heading: 'Management',
-    items: [
-      {
-        name: 'Transactions',
-        icon: TableChartTwoToneIcon,
-        link: '/management/transactions'
-      },
-      {
-        name: 'User Profile',
-        icon: AccountCircleTwoToneIcon,
-        link: '/management/profile',
-        items: [
-          {
-            name: 'Profile Details',
-            link: '/management/profile/details'
-          },
-          {
-            name: 'User Settings',
-            link: '/management/profile/settings'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    heading: 'Components',
-    items: [
-      {
-        name: 'Buttons',
-        icon: BallotTwoToneIcon,
-        link: '/components/buttons'
-      },
-      {
-        name: 'Modals',
-        icon: BeachAccessTwoToneIcon,
-        link: '/components/modals'
-      },
-      {
-        name: 'Accordions',
-        icon: EmojiEventsTwoToneIcon,
-        link: '/components/accordions'
-      },
-      {
-        name: 'Tabs',
         icon: FilterVintageTwoToneIcon,
-        link: '/components/tabs'
       },
-      {
-        name: 'Badges',
-        icon: HowToVoteTwoToneIcon,
-        link: '/components/badges'
-      },
-      {
-        name: 'Tooltips',
-        icon: LocalPharmacyTwoToneIcon,
-        link: '/components/tooltips'
-      },
-      {
-        name: 'Avatars',
-        icon: RedeemTwoToneIcon,
-        link: '/components/avatars'
-      },
-      {
-        name: 'Cards',
-        icon: SettingsTwoToneIcon,
-        link: '/components/cards'
-      },
-      {
-        name: 'Forms',
-        icon: TrafficTwoToneIcon,
-        link: '/components/forms'
-      },
-    ]
+    ],
   },
   {
-    heading: 'Extra Pages',
+    heading: 'Mints',
     items: [
       {
-        name: 'Status',
+        name: 'Artifacts',
         icon: VerifiedUserTwoToneIcon,
-        link: '/status',
+        link: '/mint/artifacts',
+      },
+    ],
+  },
+  {
+    heading: 'Mission Crew',
+    items: [
+      {
+        name: 'Twitter',
+        icon: VerifiedUserTwoToneIcon,
+        link: '/twitters',
         items: [
           {
-            name: 'Error 404',
-            link: '/status/404'
+            name: 'Official Triptych Labs',
+            link: '/twitters/official',
           },
           {
-            name: 'Error 500',
-            link: '/status/500'
+            name: 'humblehamster',
+            link: '/twitters/humblehamster',
           },
           {
-            name: 'Maintenance',
-            link: '/status/maintenance'
+            name: 'leginge',
+            link: '/twitters/peytonleginge',
           },
           {
-            name: 'Coming Soon',
-            link: '/status/coming-soon'
-          }
-        ]
-      }
-    ]
-  }
+            name: 'whymidnight',
+            link: '/twitters/_whymidnight',
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export default menuItems;

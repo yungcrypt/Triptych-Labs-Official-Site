@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { PartialRouteObject } from 'react-router';
 
 import SidebarLayout from 'src/layouts/SidebarLayout';
+import TopbarLayout from 'src/layouts/TopbarLayout';
 import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
@@ -60,6 +61,9 @@ const Avatars = Loader(
 );
 const Cards = Loader(lazy(() => import('src/content/pages/Components/Cards')));
 const Forms = Loader(lazy(() => import('src/content/pages/Components/Forms')));
+const Twitter = Loader(
+  lazy(() => import('src/content/pages/Components/Twitter')),
+);
 
 // Status
 
@@ -76,10 +80,13 @@ const StatusMaintenance = Loader(
   lazy(() => import('src/content/pages/Status/Maintenance')),
 );
 
+const Artifacts = Loader(
+  lazy(() => import('src/content/pages/Mint/Artifacts')),
+);
+
 const routes: PartialRouteObject[] = [
   {
     path: '*',
-    element: <BaseLayout />,
     children: [
       {
         path: '/',
@@ -88,6 +95,19 @@ const routes: PartialRouteObject[] = [
       {
         path: 'overview',
         element: <Navigate to="/" replace />,
+      },
+      {
+        path: 'mint',
+        children: [
+          {
+            path: '/',
+            element: <Navigate to="/" replace />,
+          },
+          {
+            path: '/artifacts',
+            element: <Artifacts />,
+          },
+        ],
       },
       {
         path: 'status',
@@ -121,97 +141,24 @@ const routes: PartialRouteObject[] = [
     ],
   },
   {
-    path: 'dashboards',
+    path: 'twitters',
     element: <SidebarLayout />,
     children: [
       {
-        path: '/',
-        element: <Navigate to="/dashboards/tasks" replace />,
+        path: '/official',
+        element: <Twitter href={'https://twitter.com/triptychlabs_io'} />,
       },
       {
-        path: 'tasks',
-        element: <Tasks />,
+        path: '/humblehamster',
+        element: <Twitter href={'https://twitter.com/uruncomfortable'} />,
       },
       {
-        path: 'messenger',
-        element: <Messenger />,
-      },
-    ],
-  },
-  {
-    path: 'management',
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: '/',
-        element: <Navigate to="/management/transactions" replace />,
+        path: '/peytonleginge',
+        element: <Twitter href={'https://twitter.com/peytonleginge'} />,
       },
       {
-        path: 'transactions',
-        element: <Transactions />,
-      },
-      {
-        path: 'profile',
-        children: [
-          {
-            path: '/',
-            element: <Navigate to="details" replace />,
-          },
-          {
-            path: 'details',
-            element: <UserProfile />,
-          },
-          {
-            path: 'settings',
-            element: <UserSettings />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: 'components',
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: '/',
-        element: <Navigate to="/components/buttons" replace />,
-      },
-      {
-        path: 'buttons',
-        element: <Buttons />,
-      },
-      {
-        path: 'modals',
-        element: <Modals />,
-      },
-      {
-        path: 'accordions',
-        element: <Accordions />,
-      },
-      {
-        path: 'tabs',
-        element: <Tabs />,
-      },
-      {
-        path: 'badges',
-        element: <Badges />,
-      },
-      {
-        path: 'tooltips',
-        element: <Tooltips />,
-      },
-      {
-        path: 'avatars',
-        element: <Avatars />,
-      },
-      {
-        path: 'cards',
-        element: <Cards />,
-      },
-      {
-        path: 'forms',
-        element: <Forms />,
+        path: '/whymidnight',
+        element: <Twitter href={'https://twitter.com/_whymidnight'} />,
       },
     ],
   },

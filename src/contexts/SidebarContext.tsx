@@ -7,7 +7,7 @@ interface SidebarContextI {
 export const SidebarContext = createContext<Partial<SidebarContextI>>({});
 
 export const SidebarProvider: FC = ({ children }) => {
-  const [sidebarToggle, setSidebarToggle] = useState(false);
+  const [sidebarToggle, setSidebarToggle] = useState(true);
   const toggleSidebar = () => {
     setSidebarToggle(!sidebarToggle);
   };

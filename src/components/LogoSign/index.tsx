@@ -10,14 +10,14 @@ const LogoWrapper = styled(Link)(
         width: 53px;
         margin: 0 auto;
         font-weight: ${theme.typography.fontWeightBold};
-`
+`,
 );
 
 const LogoSignWrapper = styled(Box)(
   () => `
         width: 52px;
         height: 38px;
-`
+`,
 );
 
 const LogoSign = styled(Box)(
@@ -54,7 +54,7 @@ const LogoSign = styled(Box)(
         &:after {
             background: ${theme.palette.secondary.main};
         }
-`
+`,
 );
 
 const LogoSignInner = styled(Box)(
@@ -67,13 +67,12 @@ const LogoSignInner = styled(Box)(
         z-index: 5;
         border-radius: ${theme.general.borderRadiusSm};
         background: ${theme.header.background};
-`
+`,
 );
 
 function Logo() {
-
   return (
-    <Tooltip title="Tokyo Free Black React Admin Dashboard" arrow>
+    <Tooltip title="Triptych Labs" arrow>
       <LogoWrapper to="/overview">
         <LogoSignWrapper>
           <LogoSign>

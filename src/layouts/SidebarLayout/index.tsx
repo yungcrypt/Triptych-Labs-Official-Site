@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
@@ -19,7 +19,7 @@ const MainWrapper = styled(Box)(
         @media (min-width: ${theme.breakpoints.values.lg}px) {
             padding-left: ${theme.sidebar.width};
         }
-`
+`,
 );
 
 const MainContent = styled(Box)(
@@ -27,20 +27,19 @@ const MainContent = styled(Box)(
         margin-top: ${theme.header.height};
         flex: 1 1 auto;
         overflow: auto;
-`
+`,
 );
 
-const SidebarLayout: FC<SidebarLayoutProps> = () => {
+const SidebarLayout: FC<SidebarLayoutProps> = ({}) => {
   return (
-    <>
+    <div>
       <Sidebar />
       <MainWrapper>
-        <Header />
         <MainContent>
           <Outlet />
         </MainContent>
       </MainWrapper>
-    </>
+    </div>
   );
 };
 

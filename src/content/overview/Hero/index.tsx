@@ -89,7 +89,7 @@ function Hero() {
         <Grid item md={10} lg={8} mx="auto">
           <LabelWrapper color="success">Version 1.1.0</LabelWrapper>
           <TypographyH1 sx={{ mb: 2 }} variant="h1">
-            Tokyo Free Black React Admin Dashboard
+            Tripych Labs
           </TypographyH1>
           <TypographyH2
             sx={{ lineHeight: 1.5, pb: 4 }}
@@ -112,7 +112,6 @@ function Hero() {
             component="a"
             target="_blank"
             rel="noopener"
-            href="https://bloomui.com/product/tokyo-free-black-react-typescript-material-ui-admin-dashboard"
             size="large"
             variant="text"
           >
@@ -150,8 +149,7 @@ function Hero() {
                 </Box>
                 <Typography component="span" variant="subtitle2">
                   {' '}
-                  - Tokyo Free Black features a modern technology stack and is
-                  built with React + Typescript.
+                  - Triptych Labs.
                 </Typography>
               </Typography>
             </Grid>
