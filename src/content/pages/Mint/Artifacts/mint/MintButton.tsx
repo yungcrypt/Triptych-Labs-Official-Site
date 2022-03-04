@@ -9,8 +9,6 @@ export const CTAButton = styled(Button)`
   height: 60px;
   margin-top: 10px;
   margin-bottom: 5px;
-  background: yellow;
-  color: black;
   font-size: 16px;
   font-weight: bold;
 `; // add your own styles here

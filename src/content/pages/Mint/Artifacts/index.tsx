@@ -118,51 +118,49 @@ function Artifacts() {
 
   return (
     <>
+      <a
+        href="https://bank.gov.ua/en/news/all/natsionalniy-bank-vidkriv-spetsrahunok-dlya-zboru-koshtiv-na-potrebi-armiyi"
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          width: '90px',
+          height: '90px',
+          background:
+            "url('http://stfalcon.github.io/stopwar/img/stop-war-in-ukraine.png')",
+          zIndex: 2013,
+          border: 0,
+        }}
+        title="Do something to stop this war! Russians are killing our children and civilians!"
+        target="_blank"
+      />
       <Helmet>
-        <title>Status - 404</title>
+        <title>Artifactory</title>
       </Helmet>
-      <MainContent>
-        <Container maxWidth="md">
-          <Box textAlign="center">
-            <Mint>
-              <WalletMultiButton />;
-              <Home
-                candyMachineId={candyMachineId}
-                connection={connection}
-                startDate={startDateSeed}
-                txTimeout={txTimeoutInMilliseconds}
-                rpcHost={rpcHost}
-              />
-            </Mint>
-          </Box>
-          <Container maxWidth="sm">
-            <Card sx={{ textAlign: 'center', mt: 3, p: 4 }}>
-              <FormControl variant="outlined" fullWidth>
-                <OutlinedInputWrapper
-                  type="text"
-                  placeholder="Search terms here..."
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <ButtonSearch variant="contained" size="small">
-                        Search
-                      </ButtonSearch>
-                    </InputAdornment>
-                  }
-                  startAdornment={
-                    <InputAdornment position="start">
-                      <SearchTwoToneIcon />
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              <Divider sx={{ my: 4 }}>OR</Divider>
-              <Button href="/overview" variant="outlined">
-                Go to homepage
-              </Button>
-            </Card>
+      <Mint>
+        <MainContent>
+          <WalletMultiButton />
+          <Container maxWidth="md">
+            <Container maxWidth="sm">
+              <Card sx={{ textAlign: 'center', mt: 3, p: 4 }}>
+                <Box textAlign="center">
+                  <Home
+                    candyMachineId={candyMachineId}
+                    connection={connection}
+                    startDate={startDateSeed}
+                    txTimeout={txTimeoutInMilliseconds}
+                    rpcHost={rpcHost}
+                  />
+                </Box>
+                <Divider sx={{ my: 4 }}>OR</Divider>
+                <Button href="/overview" variant="outlined">
+                  Go to homepage
+                </Button>
+              </Card>
+            </Container>
           </Container>
-        </Container>
-      </MainContent>
+        </MainContent>
+      </Mint>
     </>
   );
 }
