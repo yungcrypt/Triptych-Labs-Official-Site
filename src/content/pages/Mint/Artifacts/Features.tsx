@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { styled } from '@mui/material/styles';
 import {
   Grid,
   Card,
   CardContent,
   CardMedia,
   Button,
+  Divider,
   Typography,
   Paper,
   Container,
@@ -14,6 +16,11 @@ import pic1 from './30.jpg';
 import pic2 from './39.jpg';
 import pic3 from './48.jpg';
 import './index.css';
+
+const ButtonWrapper = styled(Button)(
+  ({ theme }) => `
+`,
+);
 export const Features = () => {
   return (
     <Container maxWidth={'md'} className={'cssanimation hu__hu__1'}>

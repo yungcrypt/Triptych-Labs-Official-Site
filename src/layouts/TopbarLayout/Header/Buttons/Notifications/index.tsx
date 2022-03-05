@@ -8,15 +8,30 @@ import {
   ListItem,
   Popover,
   Tooltip,
-  Typography
+  Typography,
 } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsActiveTwoTone';
 import { styled } from '@mui/material/styles';
 
 import { formatDistance, subDays } from 'date-fns';
+import { Suspense, lazy } from 'react';
+import SuspenseLoader from 'src/components/SuspenseLoader';
 
-const NotificationsBadge = styled(Badge)(
+import TwitterIcon from '@mui/icons-material/Twitter';
+
+const Loader = (Component) => (props) =>
+  (
+    <Suspense fallback={<SuspenseLoader />}>
+      <Component {...props} />
+    </Suspense>
+  );
+const Twitter = Loader(
+  lazy(() => import('src/content/pages/Components/Twitter')),
+);
+
+const NotificationsBadge = styled(TwitterIcon)(
   ({ theme }) => `
     
     .MuiBadge-badge {
@@ -37,15 +52,67 @@ const NotificationsBadge = styled(Badge)(
             content: "";
         }
     }
-`
+`,
+);
+const ListWrapper = styled(Box)(
+  ({ theme }) => `
+        .MuiTouchRipple-root {
+            display: none;
+        }
+        
+        .MuiListItem-root {
+            transition: ${theme.transitions.create(['color', 'fill'])};
+            
+            &.MuiListItem-indicators {
+                padding: ${theme.spacing(1, 2)};
+            
+                .MuiListItemText-root {
+                    .MuiTypography-root {
+                        &:before {
+                            height: 4px;
+                            width: 22px;
+                            opacity: 0;
+                            visibility: hidden;
+                            display: block;
+                            position: absolute;
+                            bottom: -10px;
+                            transition: all .2s;
+                            border-radius: ${theme.general.borderRadiusLg};
+                            content: "";
+                            background: ${theme.colors.primary.main};
+                        }
+                    }
+                }
+
+                &.active,
+                &:active,
+                &:hover {
+                
+                    background: transparent;
+                
+                    .MuiListItemText-root {
+                        .MuiTypography-root {
+                            &:before {
+                                opacity: 1;
+                                visibility: visible;
+                                bottom: 0px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+`,
 );
 
 function HeaderNotifications() {
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
-  const handleOpen = (): void => {
+  const handleOpen = () => {
     setOpen(true);
+
+    return <NavLink to="/twitter/official" />;
   };
 
   const handleClose = (): void => {
@@ -54,61 +121,45 @@ function HeaderNotifications() {
 
   return (
     <>
-      <Tooltip arrow title="Notifications">
-        <IconButton color="primary" ref={ref} onClick={handleOpen}>
-          <NotificationsBadge
-            badgeContent={1}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right'
-            }}
+      <Box>
+        <List disablePadding component={Box} display="flex">
+          <ListItem
+            classes={{ root: 'MuiListItem-indicators' }}
+            button
+            component={NavLink}
+            to="/twitters/official"
           >
-            <NotificationsActiveTwoToneIcon />
-          </NotificationsBadge>
-        </IconButton>
-      </Tooltip>
-      <Popover
-        anchorEl={ref.current}
-        onClose={handleClose}
-        open={isOpen}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-      >
-        <Box sx={{ p: 2 }} display="flex" alignItems="center" justifyContent="space-between">
-          <Typography variant="h5">Notifications</Typography>
-        </Box>
-        <Divider />
-        <List sx={{ p: 0 }}>
-          <ListItem sx={{ p: 2, minWidth: 350, display: { xs: 'block', sm: 'flex' } }}>
-            <Box flex="1">
-              <Box display="flex" justifyContent="space-between">
-                <Typography sx={{ fontWeight: 'bold' }}>
-                  Messaging Platform
-                </Typography>
-                <Typography variant="caption" sx={{ textTransform: 'none' }}>
-                  {formatDistance(subDays(new Date(), 3), new Date(), {
-                    addSuffix: true
-                  })}
-                </Typography>
-              </Box>
-              <Typography
-                component="span"
-                variant="body2"
-                color="text.secondary"
+            <Tooltip arrow title="Notifications">
+              <IconButton color="primary" ref={ref} onClick={handleOpen}>
+                <NotificationsBadge />
+              </IconButton>
+            </Tooltip>
+            <Popover
+              anchorEl={ref.current}
+              onClose={handleClose}
+              open={isOpen}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <Box
+                sx={{ p: 2 }}
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
               >
-                {' '}
-                new messages in your inbox
-              </Typography>
-            </Box>
+                <Typography variant="h5">Notifications</Typography>
+              </Box>
+              <Divider />
+            </Popover>
           </ListItem>
         </List>
-      </Popover>
+      </Box>
     </>
   );
 }

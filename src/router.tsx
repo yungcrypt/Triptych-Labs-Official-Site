@@ -98,6 +98,7 @@ const routes: PartialRouteObject[] = [
       },
       {
         path: 'mint',
+        element: <TopbarLayout />,
         children: [
           {
             path: '/',

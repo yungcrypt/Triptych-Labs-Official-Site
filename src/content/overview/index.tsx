@@ -104,9 +104,9 @@ function Dialog({ dialogue, setSidebar, bottomRef }) {
               sx={{ margin: 1 }}
               variant="contained"
               color="primary"
-              href="/sitemap"
+              href="/mint/artifacts"
             >
-              Visit The Lab
+              Mint Artifact
             </Button>
           </CardContent>
         </Card>

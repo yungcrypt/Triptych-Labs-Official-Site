@@ -4,7 +4,7 @@ import {
   ListItem,
   ListItemText,
   Menu,
-  MenuItem
+  MenuItem,
 } from '@mui/material';
 import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -59,11 +59,10 @@ const ListWrapper = styled(Box)(
                 }
             }
         }
-`
+`,
 );
 
 function HeaderMenu() {
-
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -78,63 +77,25 @@ function HeaderMenu() {
   return (
     <>
       <ListWrapper>
-        <List disablePadding component={Box} display="flex">
+        <List
+          sx={{ left: '70px' }}
+          disablePadding
+          component={Box}
+          display="flex"
+        >
           <ListItem
             classes={{ root: 'MuiListItem-indicators' }}
             button
             component={NavLink}
-            to="/components/buttons"
+            to="/"
           >
             <ListItemText
               primaryTypographyProps={{ noWrap: true }}
-              primary="Buttons"
-            />
-          </ListItem>
-          <ListItem
-            classes={{ root: 'MuiListItem-indicators' }}
-            button
-            component={NavLink}
-            to="/components/forms"
-          >
-            <ListItemText
-              primaryTypographyProps={{ noWrap: true }}
-              primary="Forms"
-            />
-          </ListItem>
-          <ListItem
-            classes={{ root: 'MuiListItem-indicators' }}
-            button
-            ref={ref}
-            onClick={handleOpen}
-          >
-            <ListItemText
-              primaryTypographyProps={{ noWrap: true }}
-              primary={
-                <Box display="flex" alignItems="center">
-                  Others
-                  <Box display="flex" alignItems="center" pl={0.3}>
-                    <ExpandMoreTwoToneIcon fontSize="small" />
-                  </Box>
-                </Box>
-              }
+              primary="Homepage"
             />
           </ListItem>
         </List>
       </ListWrapper>
-      <Menu anchorEl={ref.current} onClose={handleClose} open={isOpen}>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/overview">
-          Overview
-        </MenuItem>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/tabs">
-          Tabs
-        </MenuItem>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/cards">
-          Cards
-        </MenuItem>
-        <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/modals">
-          Modals
-        </MenuItem>
-      </Menu>
     </>
   );
 }

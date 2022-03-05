@@ -62,34 +62,20 @@ const ButtonSearch = styled(Button)(
 `,
 );
 
+const ButtonWrapper = styled(Button)(
+  ({ theme }) => `
+    display: flex;
+`,
+);
+
 function Artifacts() {
   return (
     <>
-      <a
-        href="https://bank.gov.ua/en/news/all/natsionalniy-bank-vidkriv-spetsrahunok-dlya-zboru-koshtiv-na-potrebi-armiyi"
-        style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: '90px',
-          height: '90px',
-          background:
-            "url('http://stfalcon.github.io/stopwar/img/stop-war-in-ukraine.png')",
-          zIndex: 2013,
-          border: 0,
-        }}
-        title="Do something to stop this war! Russians are killing our children and civilians!"
-        target="_blank"
-      />
       <Helmet>
         <title>Artifactory</title>
       </Helmet>
       <MainContent>
         <MintApp />
-        <Divider sx={{ my: 4 }}>OR</Divider>
-        <Button href="/overview" variant="outlined">
-          Go to homepage
-        </Button>
       </MainContent>
     </>
   );

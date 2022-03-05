@@ -26,7 +26,7 @@ import lambda from './lambda.gif';
 import { Features } from './Features';
 import Home from './mint/Home';
 import * as anc from '@project-serum/anchor';
-import { Paper, Container } from '@mui/material';
+import { Paper, CardContent, Card, Divider, Button } from '@mui/material';
 
 export const MintApp: FC = () => {
   return (
