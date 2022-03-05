@@ -21,6 +21,7 @@ import {
 import { clusterApiUrl, Connection } from '@solana/web3.js';
 import { useSnackbar } from 'notistack';
 import * as anchor from '@project-serum/anchor';
+import TopbarLayout from 'src/layouts/TopbarLayout';
 import {
   Box,
   Card,
@@ -71,6 +72,9 @@ const ButtonWrapper = styled(Button)(
 function Artifacts() {
   return (
     <>
+      <div>
+        <TopbarLayout />
+      </div>
       <Helmet>
         <title>Artifactory</title>
       </Helmet>

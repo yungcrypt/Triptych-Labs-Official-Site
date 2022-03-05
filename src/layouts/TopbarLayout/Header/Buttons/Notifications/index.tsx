@@ -1,5 +1,6 @@
 import {
   alpha,
+  Avatar,
   Badge,
   Box,
   Divider,
@@ -10,6 +11,8 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import Icon from '@mui/material/Icon';
+
 import { NavLink } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsActiveTwoTone';
@@ -27,11 +30,34 @@ const Loader = (Component) => (props) =>
       <Component {...props} />
     </Suspense>
   );
-const Twitter = Loader(
-  lazy(() => import('src/content/pages/Components/Twitter')),
+const OfficialLink = Loader(
+  lazy(() => import('src/content/pages/Components/OfficialLink')),
 );
 
-const NotificationsBadge = styled(TwitterIcon)(
+const TwitterBadge = styled(TwitterIcon)(
+  ({ theme }) => `
+    
+    .MuiBadge-badge {
+        background-color: ${alpha(theme.palette.error.main, 0.1)};
+        color: ${theme.palette.error.main};
+        min-width: 16px; 
+        height: 16px;
+        padding: 0;
+
+        &::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 0 1px ${alpha(theme.palette.error.main, 0.3)};
+            content: "";
+        }
+    }
+`,
+);
+const DiscordBadge = styled(Avatar)(
   ({ theme }) => `
     
     .MuiBadge-badge {
@@ -109,10 +135,14 @@ function HeaderNotifications() {
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
-  const handleOpen = () => {
+  const openTwitter = () => {
+    setOpen(true);
+    return <NavLink to="/twitter/official" />;
+  };
+  const openDiscord = () => {
     setOpen(true);
 
-    return <NavLink to="/twitter/official" />;
+    return <NavLink to="/discord/official" />;
   };
 
   const handleClose = (): void => {
@@ -129,34 +159,27 @@ function HeaderNotifications() {
             component={NavLink}
             to="/twitters/official"
           >
-            <Tooltip arrow title="Notifications">
-              <IconButton color="primary" ref={ref} onClick={handleOpen}>
-                <NotificationsBadge />
+            <Tooltip arrow title="Twitter">
+              <IconButton color="primary" ref={ref} onClick={openTwitter}>
+                <TwitterBadge />
               </IconButton>
             </Tooltip>
-            <Popover
-              anchorEl={ref.current}
-              onClose={handleClose}
-              open={isOpen}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-            >
-              <Box
-                sx={{ p: 2 }}
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Typography variant="h5">Notifications</Typography>
-              </Box>
-              <Divider />
-            </Popover>
+          </ListItem>
+          <ListItem
+            classes={{ root: 'MuiListItem-indicators' }}
+            button
+            component={NavLink}
+            to="/discord/official"
+          >
+            <Tooltip arrow title="Discord">
+              <IconButton color="primary" ref={ref} onClick={openDiscord}>
+                <DiscordBadge
+                  src={
+                    'https://discord.com/assets/9f6f9cd156ce35e2d94c0e62e3eff462.png'
+                  }
+                />
+              </IconButton>
+            </Tooltip>
           </ListItem>
         </List>
       </Box>

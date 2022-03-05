@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-function Twitter({ href }) {
+function OfficialLink({ href }) {
   useEffect(() => {
     window.location.href = href;
   }, []);
@@ -8,4 +8,4 @@ function Twitter({ href }) {
   return <></>;
 }
 
-export default Twitter;
+export default OfficialLink;

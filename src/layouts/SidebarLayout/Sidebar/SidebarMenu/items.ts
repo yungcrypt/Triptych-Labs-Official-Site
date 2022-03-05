@@ -2,6 +2,10 @@ import { ReactNode } from 'react';
 
 import FilterVintageTwoToneIcon from '@mui/icons-material/FilterVintageTwoTone';
 import VerifiedUserTwoToneIcon from '@mui/icons-material/VerifiedUserTwoTone';
+import RocketIcon from '@mui/icons-material/Rocket';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import StartIcon from '@mui/icons-material/Start';
 
 export interface MenuItem {
   href?: string;
@@ -33,7 +37,7 @@ const menuItems: MenuItems[] = [
     items: [
       {
         name: 'Artifacts',
-        icon: VerifiedUserTwoToneIcon,
+        icon: RocketIcon,
         link: '/mint/artifacts',
       },
     ],
@@ -49,28 +53,52 @@ const menuItems: MenuItems[] = [
     ],
   },
   {
-    heading: 'Mission Crew',
+    heading: 'Mission',
     items: [
       {
-        name: 'Twitter',
-        icon: VerifiedUserTwoToneIcon,
-        link: '/twitters',
+        name: 'Crew',
         items: [
           {
-            name: 'Official Triptych Labs',
-            link: '/twitters/official',
+            name: 'Github',
+            icon: GitHubIcon,
+            link: '/',
+            items: [
+              {
+                name: 'Official Triptych Labs',
+                link: '/twitters/official',
+              },
+              {
+                name: 'Dom',
+                link: '/twitters/_whymidnight',
+              },
+              {
+                name: 'Peyton',
+                link: '/twitters/peytonleginge',
+              },
+            ],
           },
           {
-            name: 'Evan',
-            link: '/twitters/humblehamster',
-          },
-          {
-            name: 'Peyton',
-            link: '/twitters/peytonleginge',
-          },
-          {
-            name: 'Dom',
-            link: '/twitters/_whymidnight',
+            name: 'Twitter',
+            icon: TwitterIcon,
+            link: '/twitters',
+            items: [
+              {
+                name: 'Official Triptych Labs',
+                link: '/twitters/official',
+              },
+              {
+                name: 'Evan',
+                link: '/twitters/humblehamster',
+              },
+              {
+                name: 'Peyton',
+                link: '/twitters/peytonleginge',
+              },
+              {
+                name: 'Dom',
+                link: '/twitters/_whymidnight',
+              },
+            ],
           },
         ],
       },

@@ -1,15 +1,16 @@
 @import './reset.css';
 
-html, body {
-    background-color: black;
-    color: #FFFFFF;
+html,
+body {
+  background-color: black;
+  color: #ffffff;
 }
 
 App {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .App-header {
@@ -22,69 +23,78 @@ App {
 }
 
 .griditem {
-    padding:20px;
+  padding: 20px;
 }
 
 .description {
-    font-size: '5px';
+  font-size: '5px';
 }
 
 .mint-spot {
-    margin:0 0 ;
-  width:500px;
-  background:rgba(100,100,100,0.7);
-  border-radius:8px;
+  width: 100%;
+  margin: 0 0;
+  background: rgba(100, 100, 100, 0.7);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  text-align:center;
+  text-align: center;
 }
 
-.cssanimation, .cssanimation span {
-    animation-duration: 10s;
-    animation-fill-mode: both;
+.cssanimation,
+.cssanimation span {
+  animation-duration: 10s;
+  animation-fill-mode: both;
 }
 
-.cssanimation span { display: inline-block }
+.cssanimation span {
+  display: inline-block;
+}
 
-.hu__hu__1 { animation: hu__hu__ infinite 10s ease-in-out }
+.hu__hu__1 {
+  animation: hu__hu__ infinite 10s ease-in-out;
+}
 @keyframes hu__hu__ {
-    50% { transform: translate(4px,-6px) }
+  50% {
+    transform: translate(4px, -6px);
+  }
 }
-.hu__hu__2 { animation: hu__hu__ infinite 10s ease-in-out }
+.hu__hu__2 {
+  animation: hu__hu__ infinite 10s ease-in-out;
+}
 @keyframes hu__hu__2 {
-    70% { transform: translate(10%,-60%) }
+  70% {
+    transform: translate(10%, -60%);
+  }
 }
-.hu__hu__3 { animation: hu__hu__ infinite 10s ease-in-out }
+.hu__hu__3 {
+  animation: hu__hu__ infinite 10s ease-in-out;
+}
 @keyframes hu__hu__3 {
-    30% { transform: translate(8px,8px) }
+  30% {
+    transform: translate(8px, 8px);
+  }
 }
 
 .paper-img {
-    margin:12px;
-    padding:8px;
+  margin: 12px;
+  padding: 8px;
 }
 .feature-spot {
-
-  width:70%;
-  border-radius:8px;
+  width: 70%;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  text-align:center;
-  padding:10px;
-  margin:20px;
-
+  text-align: center;
+  padding: 10px;
+  margin: 20px;
 }
 
-
-
 .MuiCard-root {
-    font-family:'arial';
-    background: rgba(20,20,20);
-        
+  font-family: 'arial';
+  background: rgba(20, 20, 20);
 }
 
 .Mint-Home {
-    font-family:'Sarpanch' !important;
-    margin-bottom:20px;
-
+  font-family: 'Sarpanch' !important;
+  margin-bottom: 20px;
 }

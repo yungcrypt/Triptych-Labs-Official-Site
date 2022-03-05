@@ -61,8 +61,8 @@ const Avatars = Loader(
 );
 const Cards = Loader(lazy(() => import('src/content/pages/Components/Cards')));
 const Forms = Loader(lazy(() => import('src/content/pages/Components/Forms')));
-const Twitter = Loader(
-  lazy(() => import('src/content/pages/Components/Twitter')),
+const OfficialLink = Loader(
+  lazy(() => import('src/content/pages/Components/OfficialLink')),
 );
 
 // Status
@@ -83,6 +83,8 @@ const StatusMaintenance = Loader(
 const Artifacts = Loader(
   lazy(() => import('src/content/pages/Mint/Artifacts')),
 );
+const Mission = Loader(lazy(() => import('src/content/pages/Mission')));
+const Crew = Loader(lazy(() => import('src/content/pages/Crew')));
 
 const routes: PartialRouteObject[] = [
   {
@@ -97,8 +99,22 @@ const routes: PartialRouteObject[] = [
         element: <Navigate to="/" replace />,
       },
       {
+        path: 'mission',
+        // element: <TopbarLayout />,
+        children: [
+          {
+            path: '/',
+            element: <Mission />,
+          },
+          {
+            path: '/crew',
+            element: <Crew />,
+          },
+        ],
+      },
+      {
         path: 'mint',
-        element: <TopbarLayout />,
+        // element: <TopbarLayout />,
         children: [
           {
             path: '/',
@@ -143,33 +159,73 @@ const routes: PartialRouteObject[] = [
   },
   {
     path: 'twitters',
-    element: <SidebarLayout />,
     children: [
       {
         path: '/official',
-        element: <Twitter href={'https://twitter.com/triptychlabs_io'} />,
+        element: <OfficialLink href={'https://twitter.com/triptychlabs_io'} />,
       },
       {
         path: '/humblehamster',
-        element: <Twitter href={'https://twitter.com/uruncomfortable'} />,
+        element: <OfficialLink href={'https://twitter.com/uruncomfortable'} />,
       },
       {
         path: '/peytonleginge',
-        element: <Twitter href={'https://twitter.com/peytonleginge'} />,
+        element: <OfficialLink href={'https://twitter.com/peytonleginge'} />,
       },
       {
         path: '/whymidnight',
-        element: <Twitter href={'https://twitter.com/_whymidnight'} />,
+        element: <OfficialLink href={'https://twitter.com/_whymidnight'} />,
+      },
+    ],
+  },
+  {
+    path: 'github',
+    children: [
+      {
+        path: '/steakhouse',
+        element: (
+          <OfficialLink href={'https://github.com/whymidnight/steakhouse'} />
+        ),
+      },
+      {
+        path: '/nftloyalty',
+        element: (
+          <OfficialLink
+            href={'https://github.com/Triptych-Labs/Solana-NFT-Loyalty-Rewards'}
+          />
+        ),
+      },
+      {
+        path: '/cardpacks',
+        element: (
+          <OfficialLink
+            href={'https://github.com/yungcrypt/CandyMachineCardPack'}
+          />
+        ),
       },
     ],
   },
   {
     path: 'discord',
-    element: <SidebarLayout />,
     children: [
       {
         path: '/verify',
-        element: <Twitter href={'https://verify.triptychlabs.io'} />,
+        element: <OfficialLink href={'https://verify.triptychlabs.io'} />,
+      },
+      {
+        path: '/official',
+        element: <OfficialLink href={'https://discord.gg/egyp7Fsp'} />,
+      },
+    ],
+  },
+  {
+    path: 'spaces',
+    children: [
+      {
+        path: '/mint',
+        element: (
+          <OfficialLink href={'https://twitter.com/i/spaces/1MnGnkrrdlYJO'} />
+        ),
       },
     ],
   },

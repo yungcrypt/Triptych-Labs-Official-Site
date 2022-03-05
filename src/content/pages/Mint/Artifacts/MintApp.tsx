@@ -33,6 +33,8 @@ export const MintApp: FC = () => {
     <Theme>
       <Context>
         <div className={'App-header'}>
+          <img src={logo} style={{ marginTop: '8%' }} />
+          <br />
           <Content />
         </div>
       </Context>
@@ -41,7 +43,7 @@ export const MintApp: FC = () => {
 };
 const Context: FC<{ children: ReactNode }> = ({ children }) => {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-  const network = WalletAdapterNetwork.Devnet;
+  const network = WalletAdapterNetwork.Mainnet;
 
   // You can also provide a custom RPC endpoint.
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
@@ -87,7 +89,7 @@ const Content: FC = () => {
   const getCandyMachineId = (): anc.web3.PublicKey | undefined => {
     try {
       const candyMachineId = new anc.web3.PublicKey(
-        'AEsFGqC7CbMp35Lv18o8qRWYsKgjDfnJNCkhGqTdXNf2',
+        'AKQJEFQ6SeTWNMRPhg716rLTWQ33ECGPdhLGwzqsZKN3',
       );
 
       return candyMachineId;
@@ -97,10 +99,11 @@ const Content: FC = () => {
     }
   };
   const candyMachineId = getCandyMachineId();
-  const network = 'devnet';
-  const rpcHost = 'https://api.devnet.solana.com';
+  const network = 'mainnet-beta';
+  const rpcHost =
+    'https://falling-empty-tree.solana-mainnet.quiknode.pro/934c447edf1a84cdee3f3e392d5e5f33f2b9bb48/';
   const connection = new anc.web3.Connection(
-    rpcHost ? rpcHost : anc.web3.clusterApiUrl('devnet'),
+    rpcHost ? rpcHost : anc.web3.clusterApiUrl('mainnet-beta'),
   );
 
   const startDateSeed = parseInt('10');
@@ -109,8 +112,6 @@ const Content: FC = () => {
   const endpoint = useMemo(() => clusterApiUrl(network), []);
   return (
     <>
-      <img src={logo} style={{ marginTop: '8%' }} />
-      <br />
       <div className={'mint-spot'}>
         <WalletMultiButton />
         <div style={{ margin: '20px' }}>
