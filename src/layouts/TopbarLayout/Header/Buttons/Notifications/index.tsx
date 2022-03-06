@@ -131,6 +131,18 @@ const ListWrapper = styled(Box)(
 `,
 );
 
+/*
+            <Tooltip arrow title="Discord">
+              <IconButton color="primary" ref={ref} onClick={openDiscord}>
+                <DiscordBadge
+                  src={
+                    'https://discord.com/assets/9f6f9cd156ce35e2d94c0e62e3eff462.png'
+                  }
+                />
+              </IconButton>
+            </Tooltip>
+ * */
+
 function HeaderNotifications() {
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -170,17 +182,7 @@ function HeaderNotifications() {
             button
             component={NavLink}
             to="/discord/official"
-          >
-            <Tooltip arrow title="Discord">
-              <IconButton color="primary" ref={ref} onClick={openDiscord}>
-                <DiscordBadge
-                  src={
-                    'https://discord.com/assets/9f6f9cd156ce35e2d94c0e62e3eff462.png'
-                  }
-                />
-              </IconButton>
-            </Tooltip>
-          </ListItem>
+          ></ListItem>
         </List>
       </Box>
     </>
