@@ -87,6 +87,31 @@ const Mission = Loader(lazy(() => import('src/content/pages/Mission')));
 const Crew = Loader(lazy(() => import('src/content/pages/Crew')));
 
 const routes: PartialRouteObject[] = [
+ {
+    path: 'dashboards',
+    element: (
+      <SidebarLayout />
+    ),
+    children: [
+      {
+        path: '/',
+        element: (
+          <Navigate
+            to="/dashboards/tasks"
+            replace
+          />
+        )
+      },
+      {
+        path: 'tasks',
+        element: <Tasks />
+      },
+      {
+        path: 'messenger',
+        element: <Messenger />
+      }
+    ]
+  },
   {
     path: '*',
     children: [
