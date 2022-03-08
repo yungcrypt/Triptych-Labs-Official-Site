@@ -84,7 +84,7 @@ function TasksAnalytics() {
     },
     {
       value: 'last_year',
-      text: 'Last year'
+      text: 'Most Recent'
     }
   ];
 
@@ -135,32 +135,10 @@ function TasksAnalytics() {
             </Menu>
           </>
         }
-        title="Tasks Analytics"
+        title="Activity Feed"
       />
       <CardContent sx={{ pt: 0 }}>
         <Box display="flex" alignItems="center" pl={1} pb={3}>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ display: 'flex', alignItems: 'center', mr: 2 }}
-          >
-            <DotPrimary />
-            tasks created
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ display: 'flex', alignItems: 'center' }}
-          >
-            <DotPrimaryLight />
-            tasks completed
-          </Typography>
-        </Box>
-        <Box height={200}>
-          <TasksAnalyticsChartWrapper
-            data={transactions}
-            labels={generic.month.labels}
-          />
         </Box>
       </CardContent>
     </Card>

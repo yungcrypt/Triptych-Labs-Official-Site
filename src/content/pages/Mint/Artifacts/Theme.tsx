@@ -55,7 +55,8 @@ const theme = createTheme({
       },
     },
   },
-});
+}
+);
 
 export const Theme: FC<{ children: ReactNode }> = ({ children }) => {
   return (

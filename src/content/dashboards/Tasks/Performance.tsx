@@ -14,11 +14,10 @@ import CancelPresentationTwoToneIcon from '@mui/icons-material/CancelPresentatio
 
 const RootWrapper = styled(Card)(
   ({ theme }) => `
-    background: ${theme.colors.gradients.green1};
-    color: ${theme.colors.alpha.white[100]};
+    color: ${theme.colors.alpha.white[0]};
     
     .MuiCardHeader-title {
-      color: ${theme.colors.alpha.white[100]};
+      color: ${theme.colors.alpha.white[0]};
     }
 `
 );
@@ -68,40 +67,19 @@ function Performance() {
   
 
   return (
-    <RootWrapper sx={{ p: 1 }}>
+    <RootWrapper sx={{ p: 1 ,border:"solid",}}>
+      <CardContent>
+        <Box display="flex" sx={{ px: 2, pb: 3 }} justifyContent="center" alignItems="center">
+          <Box display="flex" justifyContent="center" sx={{flexDirection:"column"}}>
       <CardHeader
-        title="Performance"
+        title="DAO Holdings"
         titleTypographyProps={{ variant: 'h3' }}
       />
-      <CardContent>
-        <Box display="flex" sx={{ px: 2, pb: 3 }} alignItems="center">
-          <AvatarSuccess sx={{ mr: 2 }} variant="rounded">
-            <AssignmentTurnedInTwoToneIcon fontSize="large" />
-          </AvatarSuccess>
-          <Box>
-            <Typography variant="h1">23</Typography>
-            <TypographySecondary variant="subtitle2" noWrap>
-              tasks created
+            <Typography sx={{textAlign:"center"}} variant="h1">235.345</Typography>
+            <TypographySecondary sx={{textAlign:"center"}} variant="subtitle1" noWrap>
+              SOL
             </TypographySecondary>
           </Box>
-        </Box>
-        <Box display="flex" sx={{ px: 2, pb: 3 }} alignItems="center">
-          <AvatarError sx={{ mr: 2 }} variant="rounded">
-            <CancelPresentationTwoToneIcon fontSize="large" />
-          </AvatarError>
-          <Box>
-            <Typography variant="h1">5</Typography>
-            <TypographySecondary variant="subtitle2" noWrap>
-              tasks closed
-            </TypographySecondary>
-          </Box>
-        </Box>
-        <Box pt={3}>
-          <LinearProgressWrapper
-            value={73}
-            color="primary"
-            variant="determinate"
-          />
         </Box>
       </CardContent>
     </RootWrapper>

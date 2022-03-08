@@ -26,14 +26,14 @@ import lambda from './lambda.gif';
 import { Features } from './Features';
 import Home from './mint/Home';
 import * as anc from '@project-serum/anchor';
-import { Paper, CardContent, Card, Divider, Button } from '@mui/material';
+import { Paper, CardContent, Box, Card, Divider, Button } from '@mui/material';
 
 export const MintApp: FC = () => {
   return (
     <Theme>
       <Context>
-        <div className={'App-header'}>
-          <img src={logo} style={{ marginTop: '8%' }} />
+        <div className={'App-header'} style={{background:"url(/static/1.png)"}}>
+          <img src={'/static/images/labs.png'} style={{ marginTop: '8%' }} />
           <br />
           <Content />
         </div>

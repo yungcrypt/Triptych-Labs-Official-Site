@@ -20,8 +20,8 @@ function DashboardTasks() {
   const [currentTab, setCurrentTab] = useState<string>('analytics');
 
   const tabs = [
-    { value: 'analytics', label: 'Analytics Overview' },
-    { value: 'taskSearch', label: 'Task Search' }
+    { value: 'analytics', label: 'Governance Dashboard' },
+    { value: 'taskSearch', label: 'Proposals' }
   ];
 
   const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
@@ -60,9 +60,6 @@ function DashboardTasks() {
           </Grid>
           {currentTab === 'analytics' && (
             <>
-              <Grid item xs={12}>
-                <TeamOverview />
-              </Grid>
               <Grid item xs={12} sm={6} md={8}>
                 <TasksAnalytics />
               </Grid>
