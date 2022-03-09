@@ -115,7 +115,6 @@ const routes: PartialRouteObject[] = [
       },
       {
         path: 'dao',
-        element: <TopbarLayout />,
         children: [
           {
             path: '/',
