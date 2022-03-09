@@ -85,6 +85,7 @@ const Artifacts = Loader(
 );
 const Mission = Loader(lazy(() => import('src/content/pages/Mission')));
 const Crew = Loader(lazy(() => import('src/content/pages/Crew')));
+const Dao = Loader(lazy(() => import('src/content/pages/DAO')));
 
 const routes: PartialRouteObject[] = [
   {
@@ -113,20 +114,20 @@ const routes: PartialRouteObject[] = [
         ],
       },
       {
-        path: 'dashboards',
+        path: 'dao',
         element: <TopbarLayout />,
         children: [
           {
             path: '/',
-            element: <Navigate to="/dashboards/tasks" replace />,
+            element: <Mission />,
           },
           {
-            path: 'tasks',
+            path: '/enter',
+            element: <Dao />,
+          },
+          {
+            path: 'dashboard',
             element: <Tasks />,
-          },
-          {
-            path: 'messenger',
-            element: <Messenger />,
           },
         ],
       },

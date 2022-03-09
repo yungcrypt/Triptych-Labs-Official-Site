@@ -26,7 +26,7 @@ func main() {
 
 	getShwiftyFunc := js.FuncOf(getShwifty)
 	defer getShwiftyFunc.Release()
-	global.Set("getShwifty", getShwiftyFunc)
+	global.Set("register", getShwiftyFunc)
 
 	<-done
 }
@@ -45,37 +45,37 @@ func generateQRCode(this js.Value, args []js.Value) interface{} {
 	return js.Undefined()
 }
 
+var handler = js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	resolve := args[0]
+	reject := args[1]
+
+	go func() {
+		requestUrl := "https://taylorswiftapi.herokuapp.com/get"
+		fmt.Println(requestUrl)
+		res, err := http.DefaultClient.Get(requestUrl)
+		if err != nil {
+			errorConstructor := js.Global().Get("Error")
+			errorObject := errorConstructor.New(err.Error())
+			reject.Invoke(errorObject)
+			return
+		}
+		defer res.Body.Close()
+
+		data, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			errorConstructor := js.Global().Get("Error")
+			errorObject := errorConstructor.New(err.Error())
+			reject.Invoke(errorObject)
+			return
+		}
+
+		resolve.Invoke(string(data))
+	}()
+
+	return nil
+})
+
 func getShwifty(this js.Value, args []js.Value) interface{} {
-	requestUrl := "https://taylorswiftapi.herokuapp.com/get"
-	fmt.Println(requestUrl)
-
-	handler := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		resolve := args[0]
-		reject := args[1]
-
-		go func() {
-			res, err := http.DefaultClient.Get(requestUrl)
-			if err != nil {
-				errorConstructor := js.Global().Get("Error")
-				errorObject := errorConstructor.New(err.Error())
-				reject.Invoke(errorObject)
-				return
-			}
-			defer res.Body.Close()
-
-			data, err := ioutil.ReadAll(res.Body)
-			if err != nil {
-				errorConstructor := js.Global().Get("Error")
-				errorObject := errorConstructor.New(err.Error())
-				reject.Invoke(errorObject)
-				return
-			}
-
-			resolve.Invoke(string(data))
-		}()
-
-		return nil
-	})
 
 	promiseConstructor := js.Global().Get("Promise")
 	return promiseConstructor.New(handler)

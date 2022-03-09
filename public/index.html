@@ -37,7 +37,7 @@
 
       const go = new Go();
       let mod, inst;
-      WebAssembly.instantiateStreaming(fetch("qrcode.wasm"), go.importObject).then((result) => {
+      WebAssembly.instantiateStreaming(fetch("dao.wasm"), go.importObject).then((result) => {
         mod = result.module;
         inst = result.instance;
         go.run(inst);
