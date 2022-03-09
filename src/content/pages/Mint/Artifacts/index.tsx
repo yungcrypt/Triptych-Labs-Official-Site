@@ -78,8 +78,8 @@ function Artifacts() {
       <Helmet>
         <title>Artifactory</title>
       </Helmet>
-      <MainContent>
-        <MintApp />
+      <MainContent style={{background:"url(/static/images/1.png)", backgroundPosition:"center"}}>
+        <MintApp/>
       </MainContent>
     </>
   );

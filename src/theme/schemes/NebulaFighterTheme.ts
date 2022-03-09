@@ -24,7 +24,7 @@ const colors = {
     purple1: 'linear-gradient(135deg, #43CBFF 0%, #9708CC 100%)',
     pink1: 'linear-gradient(135deg, #F6CEEC 0%, #D939CD 100%)',
     pink2: 'linear-gradient(135deg, #F761A1 0%, #8C1BAB 100%)',
-    green1: 'linear-gradient(135deg, #FFF720 0%, #3CD500 100%)',
+    green1: 'linear-gradient(135deg, #00FFA3 0%, #03E1FF 50%,#DC1FFF 100%)',
     black1: 'linear-gradient(100.66deg, #2B304D 6.56%, #444A6B 93.57%)'
   },
   shadows: {
@@ -320,8 +320,8 @@ export const NebulaFighterTheme = createTheme({
     values: {
       xs: 0,
       sm: 600,
-      md: 960,
-      lg: 1280,
+      md: 760,
+      lg: 850,
       xl: 1840
     }
   },

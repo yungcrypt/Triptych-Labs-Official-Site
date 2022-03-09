@@ -13,9 +13,6 @@ import {
   Link,
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import pic1 from './30.jpg';
-import pic2 from './39.jpg';
-import pic3 from './48.jpg';
 import './index.css';
 
 /*
@@ -66,7 +63,7 @@ export const Features = () => {
           </Grid>
           <Grid item xs={6}>
             <Paper elevation={0} className={'cssanimation hu__hu__1 paper-img'}>
-              <img src={pic1} style={{ borderRadius: '10px', width: '100%' }} />
+              <img src={'/static/images/30.jpg'} style={{ borderRadius: '10px', width: '100%' }} />
             </Paper>
             <Card className="griditem">
               <CardContent>
@@ -128,7 +125,7 @@ export const Features = () => {
           <Grid item xs={6}>
             <Paper elevation={0} className={'cssanimation hu__hu__1 paper-img'}>
               <img
-                src={pic2}
+                src={'/static/images/39.jpg'}
                 style={{ borderRadius: '10px', marginLeft: '' }}
               />
             </Paper>
@@ -159,7 +156,7 @@ export const Features = () => {
           <Grid item xs={6}>
             <Paper elevation={0} className={'cssanimation hu__hu__1 paper-img'}>
               <img
-                src={pic3}
+                src={'/static/images/48.jpg'}
                 style={{ borderRadius: '10px', marginLeft: '' }}
               />
             </Paper>

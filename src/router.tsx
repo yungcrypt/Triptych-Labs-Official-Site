@@ -113,6 +113,24 @@ const routes: PartialRouteObject[] = [
         ],
       },
       {
+        path: 'dashboards',
+        element: <TopbarLayout />,
+        children: [
+          {
+            path: '/',
+            element: <Navigate to="/dashboards/tasks" replace />,
+          },
+          {
+            path: 'tasks',
+            element: <Tasks />,
+          },
+          {
+            path: 'messenger',
+            element: <Messenger />,
+          },
+        ],
+      },
+      {
         path: 'mint',
         // element: <TopbarLayout />,
         children: [

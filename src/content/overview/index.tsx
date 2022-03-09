@@ -126,11 +126,11 @@ function Logo() {
     const y = Math.sin(t);
     const z = -200 * Math.cos(t);
     // @ts-ignore
-    logoRef.current.rotation.x -= 0.02;
+    logoRef.current.rotation.x -= 0.0;
     // @ts-ignore
-    logoRef.current.rotation.z += 0.02;
+    logoRef.current.rotation.z += 0.0;
     // @ts-ignore
-    logoRef.current.rotation.y += 0.005;
+    logoRef.current.rotation.y += 0.02;
   });
 
   return (
@@ -138,7 +138,7 @@ function Logo() {
       <a.primitive
         ref={logoRef}
         object={copiedGLTF}
-        position={[0, 200, 0]}
+        position={[0, 100, 0]}
         scale={10}
       />
     </group>
@@ -326,6 +326,7 @@ function Overview() {
                   linear
                   camera={{ position: [0, 100, 300], fov: 90 }}
                 >
+                  <OrbitControls/>
                   <Logo />
                   <Satellite size={0.5} />
                   <Sun
