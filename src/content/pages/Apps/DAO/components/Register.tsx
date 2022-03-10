@@ -137,7 +137,7 @@ const DAORegister: React.FC<Props> = (props) => {
               fullWidth={false}
               color="primary"
             >
-              Generate
+              Register
             </Button>
           </FormControl>
         </form>

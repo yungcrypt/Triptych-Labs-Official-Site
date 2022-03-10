@@ -7,16 +7,19 @@ import { BrowserRouter } from 'react-router-dom';
 
 import 'nprogress/nprogress.css';
 import { SidebarProvider } from './contexts/SidebarContext';
+import { RecoilRoot } from 'recoil';
 
 ReactDOM.render(
   <HelmetProvider>
     <SidebarProvider>
       <BrowserRouter>
-        <App />
+        <RecoilRoot>
+          <App />
+        </RecoilRoot>
       </BrowserRouter>
     </SidebarProvider>
   </HelmetProvider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 serviceWorker.unregister();

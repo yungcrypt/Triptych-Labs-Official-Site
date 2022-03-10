@@ -17,6 +17,8 @@ import {
   PublicKey,
 } from '@solana/web3.js';
 import * as anc from '@project-serum/anchor';
+import { useRecoilState } from 'recoil';
+import { login } from 'src/content/pages/Apps/DAO/atoms/login';
 
 type Props = {};
 
@@ -24,16 +26,25 @@ declare function certify(
   pubKey: string,
   programKey: string,
   accessCode: string,
-): Promise<Uint8Array>;
+): Promise<boolean>;
 
 async function callCertify(
   pubKey: string,
   programKey: string,
   accessCode: string,
-  sendTransaction: any,
+  setEntry: any,
+  setErrorMessage: any,
 ) {
-  const connection = new anc.web3.Connection(anc.web3.clusterApiUrl('devnet'));
-  const resp = await certify(pubKey, programKey, accessCode);
+  try {
+    const resp = await certify(pubKey, programKey, accessCode);
+    if (resp) {
+      setEntry(true);
+    } else {
+      setErrorMessage('Unauthorized');
+    }
+  } catch (e) {
+    setErrorMessage('Unauthorized');
+  }
 
   console.log('Made it');
 }
@@ -41,13 +52,13 @@ async function callCertify(
 const DAOEntry: React.FC<Props> = (props) => {
   const { publicKey, sendTransaction } = useWallet();
 
-  const [register, setRegister] = useState<RegisterT | null>(null);
+  const [entry, setEntry] = useRecoilState(login);
   const [programKey, setProgramKey] = useState('');
   const [accessCode, setAccessCode] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const clearState = () => {
-    setRegister(null);
+    setEntry(false);
     setErrorMessage(null);
   };
 
@@ -81,7 +92,8 @@ const DAOEntry: React.FC<Props> = (props) => {
         publicKey.toString(),
         programKey,
         accessCode,
-        sendTransaction,
+        setEntry,
+        setErrorMessage,
       );
     },
     [accessCode, programKey],

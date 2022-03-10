@@ -37,7 +37,18 @@ import TopbarLayout from 'src/layouts/TopbarLayout';
 import Entry from 'src/content/pages/Apps/DAO/components/Entry';
 
 import { styled } from '@mui/material/styles';
+import { useRecoilState } from 'recoil';
 
+import SuspenseLoader from 'src/components/SuspenseLoader';
+import { Suspense, lazy } from 'react';
+import { login } from 'src/content/pages/Apps/DAO/atoms/login';
+const Loader = (Component) => (props) =>
+  (
+    <Suspense fallback={<SuspenseLoader />}>
+      <Component {...props} />
+    </Suspense>
+  );
+const Tasks = Loader(lazy(() => import('src/content/dashboards/Tasks')));
 const MainContent = styled(Box)(
   ({ theme }) => `
     height: 100%;
@@ -103,29 +114,36 @@ const Wallet = ({}) => {
 };
 
 function Mission() {
+  const [entry, setEntry] = useRecoilState(login);
+
   return (
     <>
-      <div>
-        <TopbarLayout />
-      </div>
-      <Helmet>
-        <title>Status - 404</title>
-      </Helmet>
-      <MainContent>
-        <Container maxWidth="md">
-          <Container maxWidth="sm">
-            <Card sx={{ textAlign: 'center', mt: 3, p: 4 }}>
-              <Box textAlign="center">
-                <Wallet />
-              </Box>
-              <Divider sx={{ my: 4 }}>OR</Divider>
-              <Button href="/overview" variant="outlined">
-                Go to homepage
-              </Button>
-            </Card>
-          </Container>
-        </Container>
-      </MainContent>
+      {!entry && (
+        <>
+          <div>
+            <TopbarLayout />
+          </div>
+          <Helmet>
+            <title>Status - 404</title>
+          </Helmet>
+          <MainContent>
+            <Container maxWidth="md">
+              <Container maxWidth="sm">
+                <Card sx={{ textAlign: 'center', mt: 3, p: 4 }}>
+                  <Box textAlign="center">
+                    <Wallet />
+                  </Box>
+                  <Divider sx={{ my: 4 }}>OR</Divider>
+                  <Button href="/overview" variant="outlined">
+                    Go to homepage
+                  </Button>
+                </Card>
+              </Container>
+            </Container>
+          </MainContent>
+        </>
+      )}
+      {entry && <Tasks />}
     </>
   );
 }
