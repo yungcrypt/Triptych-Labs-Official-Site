@@ -7,7 +7,6 @@ import {
   TextField,
 } from '@mui/material';
 import React, { useState, useCallback } from 'react';
-import type RegisterT from 'src/content/pages/Apps/DAO/structs/register';
 import { useWallet } from '@solana/wallet-adapter-react';
 import {
   Keypair,
@@ -19,6 +18,7 @@ import {
 import * as anc from '@project-serum/anchor';
 import { useRecoilState } from 'recoil';
 import { login } from 'src/content/pages/Apps/DAO/atoms/login';
+import { session } from 'src/content/pages/Apps/DAO/atoms/session';
 
 type Props = {};
 
@@ -33,12 +33,14 @@ async function callCertify(
   programKey: string,
   accessCode: string,
   setEntry: any,
+  setSession: any,
   setErrorMessage: any,
 ) {
   try {
     const resp = await certify(pubKey, programKey, accessCode);
     if (resp) {
       setEntry(true);
+      setSession(programKey);
     } else {
       setErrorMessage('Unauthorized');
     }
@@ -50,9 +52,10 @@ async function callCertify(
 }
 
 const DAOEntry: React.FC<Props> = (props) => {
-  const { publicKey, sendTransaction } = useWallet();
+  const { publicKey } = useWallet();
 
-  const [entry, setEntry] = useRecoilState(login);
+  const [, setEntry] = useRecoilState(login);
+  const [, setSession] = useRecoilState(session);
   const [programKey, setProgramKey] = useState('');
   const [accessCode, setAccessCode] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -93,6 +96,7 @@ const DAOEntry: React.FC<Props> = (props) => {
         programKey,
         accessCode,
         setEntry,
+        setSession,
         setErrorMessage,
       );
     },

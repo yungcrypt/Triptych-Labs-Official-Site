@@ -7,7 +7,6 @@ import {
   TextField,
 } from '@mui/material';
 import React, { useState, useCallback } from 'react';
-import type RegisterT from 'src/content/pages/Apps/DAO/structs/register';
 import { useWallet } from '@solana/wallet-adapter-react';
 import {
   Keypair,
@@ -60,13 +59,11 @@ async function callRegister(
 const DAORegister: React.FC<Props> = (props) => {
   const { publicKey, sendTransaction } = useWallet();
 
-  const [register, setRegister] = useState<RegisterT | null>(null);
   const [programKey, setProgramKey] = useState('');
   const [accessCode, setAccessCode] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const clearState = () => {
-    setRegister(null);
     setErrorMessage(null);
   };
 

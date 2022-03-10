@@ -22,107 +22,20 @@ import {
   MenuItem,
 } from '@mui/material';
 import { formatDistance, subMonths, subDays } from 'date-fns';
-import TodayTwoToneIcon from '@mui/icons-material/TodayTwoTone';
 import { Link as RouterLink } from 'react-router-dom';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import Text from 'src/components/Text';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
+import DAOProposals from 'src/content/pages/Apps/DAO/components/Proposals';
 import { styled } from '@mui/material/styles';
 
-const VoteButton = styled(Button)(
-  ({ theme }) => `
-    margin: 10px;
-    width: 90%;
-    `,
-);
 const OutlinedInputWrapper = styled(OutlinedInput)(
   ({ theme }) => `
     background-color: ${theme.colors.alpha.white[100]};
 `,
 );
 
-const proposals = [{proposalNum:'0', proposalType: "Expense", proposalDescription:"Buy 100 Jungle Cats for DAO vault" },{proposalNum:'1', proposalType: "Aquisition", proposalDescription:"Take Over World." }]
-
-const ProposalCards = (props: any) => {
-    
-  const handleDelete = () => {};
-
-  const handleClick = () => {};
-
-  return  props.proposals.map((proposal: any)=>{ return<Grid item xs={12} md={4}>
-          <Card>
-            <CardContent
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Link
-                href="#"
-                variant="h3"
-                color="text.primary"
-                underline="hover"
-              >
-                Proposal #{proposal.proposalNum}
-              </Link>
-              <Box sx={{ py: 2 }}>
-                <Chip
-                  sx={{ mr: 0.5 }}
-                  size="small"
-                  label={proposal.proposalType}
-                  color="secondary"
-                  onClick={handleClick}
-                  onDelete={handleDelete}
-                />
-              </Box>
-              <Typography sx={{ pb: 2 }} color="text.secondary">
-                {proposal.proposalDescription}
-              </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <VoteButton
-                  sx={{ background: 'green' }}
-                  size="small"
-                  variant="contained"
-                >
-                  Yay
-                </VoteButton>
-                <VoteButton
-                  sx={{ background: 'red' }}
-                  size="small"
-                  variant="contained"
-                >
-                  Nay
-                </VoteButton>
-              </Box>
-            </CardContent>
-            <Divider />
-            <CardActions
-              sx={{
-                p: 2,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Typography
-                display="flex"
-                alignItems="center"
-                variant="subtitle2"
-              >
-                <TodayTwoToneIcon sx={{ mr: 1 }} />6 Days 3 Hrs left
-              </Typography>
-            </CardActions>
-          </Card>
-        </Grid>
-       })
-
-}
-
-
 function TaskSearch() {
-
   const periods = [
     {
       value: 'popular',
@@ -145,6 +58,19 @@ function TaskSearch() {
   const actionRef1 = useRef<any>(null);
   const [openPeriod, setOpenMenuPeriod] = useState<boolean>(false);
   const [period, setPeriod] = useState<string>(periods[0].text);
+
+  const proposals = [
+    {
+      proposalNum: '0',
+      proposalType: 'Expense',
+      proposalDescription: 'Buy 100 Jungle Cats for DAO vault',
+    },
+    {
+      proposalNum: '1',
+      proposalType: 'Aquisition',
+      proposalDescription: 'Take Over World.',
+    },
+  ];
 
   return (
     <>
@@ -221,7 +147,7 @@ function TaskSearch() {
         </Box>
       </Box>
       <Grid container spacing={3}>
-        <ProposalCards proposals={proposals}/>
+        <DAOProposals />
       </Grid>
       <Box
         sx={{ py: 3 }}

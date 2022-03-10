@@ -13,15 +13,12 @@ import Checklist from './Checklist';
 import Profile from './Profile';
 import TaskSearch from './TaskSearch';
 
-
 function DashboardTasks() {
-
-
   const [currentTab, setCurrentTab] = useState<string>('analytics');
 
   const tabs = [
     { value: 'analytics', label: 'Governance Dashboard' },
-    { value: 'taskSearch', label: 'Proposals' }
+    { value: 'taskSearch', label: 'Proposals' },
   ];
 
   const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
